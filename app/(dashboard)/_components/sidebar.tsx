@@ -1,4 +1,5 @@
 import Logo from './logo';
+import SidebarRoutes from './sidebar-routes';
 
 const Sidebar = () => {
   return (
@@ -6,6 +7,7 @@ const Sidebar = () => {
       <div className='p-6'>
         <Logo />
       </div>
+      <SidebarRoutes />
     </div>
   );
 };
