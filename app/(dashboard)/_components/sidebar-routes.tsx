@@ -17,7 +17,18 @@ const GUEST_ROUTES = [
 
 const SidebarRoutes = () => {
   const routes = GUEST_ROUTES;
-  return <div className='flex flex-col'>This is a sidebar routes</div>;
+  return (
+    <div className='flex flex-col'>
+      {routes.map((route) => (
+        <SidebarRoute
+          key={route.href}
+          icon={route.icon}
+          label={route.label}
+          href={route.href}
+        />
+      ))}
+    </div>
+  );
 };
 
 export default SidebarRoutes;
