@@ -1,5 +1,7 @@
 const Sidebar = () => {
-  return <div>This is a sidebar</div>;
+  return (
+    <div className='flex flex-col overflow-y-auto border-r bg-white shadow-sm '></div>
+  );
 };
 
 export default Sidebar;
