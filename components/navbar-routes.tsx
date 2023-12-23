@@ -1,5 +1,13 @@
+'use client';
+
+import { UserButton } from '@clerk/nextjs';
+
 const NavbarRoutes = () => {
-  return <div>This is navbar routes</div>;
+  return (
+    <div className='ml-auto flex items-center gap-x-2'>
+      <UserButton />
+    </div>
+  );
 };
 
 export default NavbarRoutes;
