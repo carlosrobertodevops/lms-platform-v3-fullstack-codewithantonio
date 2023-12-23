@@ -3,7 +3,7 @@
 import { Compass, Layout } from 'lucide-react';
 import SidebarRoute from './sidebar-route';
 
-const GUEST_ROUTES = [
+const HOME_ROUTES = [
   {
     icon: Layout,
     label: 'Dashboard',
@@ -17,7 +17,7 @@ const GUEST_ROUTES = [
 ];
 
 const SidebarRoutes = () => {
-  const routes = GUEST_ROUTES;
+  const routes = HOME_ROUTES;
   return (
     <div className='flex flex-col'>
       {routes.map((route) => (
