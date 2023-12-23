@@ -22,7 +22,7 @@ const SidebarRoute = ({ icon: Icon, label, href }: SidebarRouteProps) => {
 
   return (
     <button type='button' onClick={onClick}>
-      <Icon className={isActive ? 'text-red-500' : 'text-black'} />
+      <Icon />
       {label}
     </button>
   );
