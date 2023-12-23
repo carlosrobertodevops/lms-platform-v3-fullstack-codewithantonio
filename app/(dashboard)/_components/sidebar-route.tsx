@@ -11,12 +11,12 @@ interface SidebarRouteProps {
 
 const SidebarRoute = ({ icon: Icon, label, href }: SidebarRouteProps) => {
   const pathname = usePathname();
-  const isActive = pathname === href;
-  //TODO: Add another condition for isActive variable
+
+  const isActive = pathname === href || pathname?.startsWith(`${href}`);
 
   return (
     <div>
-      <Icon />
+      <Icon className={isActive ? 'text-red-500' : 'text-black'} />
     </div>
   );
 };
