@@ -1,7 +1,8 @@
 'use client';
 
+import { Button } from '@/components/ui/button';
 import { LucideIcon } from 'lucide-react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 interface SidebarRouteProps {
   icon: LucideIcon;
@@ -11,13 +12,19 @@ interface SidebarRouteProps {
 
 const SidebarRoute = ({ icon: Icon, label, href }: SidebarRouteProps) => {
   const pathname = usePathname();
+  const router = useRouter();
 
-  const isActive = pathname === href || pathname?.startsWith(`${href}`);
+  const isActive = pathname === href || pathname?.startsWith(`${href}/`);
+
+  const onClick = () => {
+    router.push(href);
+  };
 
   return (
-    <div>
+    <button type='button' onClick={onClick}>
       <Icon className={isActive ? 'text-red-500' : 'text-black'} />
-    </div>
+      {label}
+    </button>
   );
 };
 
