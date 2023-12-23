@@ -1,5 +1,11 @@
+import MobileSidebar from './mobile-sidebar';
+
 const Navbar = () => {
-  return <div>This is a navbar</div>;
+  return (
+    <div>
+      <MobileSidebar />
+    </div>
+  );
 };
 
 export default Navbar;
