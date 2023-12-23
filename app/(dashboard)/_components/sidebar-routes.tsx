@@ -1,4 +1,5 @@
 import { Compass, Layout } from 'lucide-react';
+import SidebarRoute from './sidebar-route';
 
 `use client`;
 
