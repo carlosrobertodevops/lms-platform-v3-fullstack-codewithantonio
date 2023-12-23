@@ -1,6 +1,6 @@
 'use client';
 
-import { Compass, Layout } from 'lucide-react';
+import { BarChart, Compass, Layout, List } from 'lucide-react';
 import SidebarRoute from './sidebar-route';
 
 const HOME_ROUTES = [
@@ -13,6 +13,19 @@ const HOME_ROUTES = [
     icon: Compass,
     label: 'Browse',
     href: '/search',
+  },
+];
+
+const TEACHER_ROUTES = [
+  {
+    icon: List,
+    label: 'Courses',
+    href: '/teacher/courses',
+  },
+  {
+    icon: BarChart,
+    label: 'Analytics',
+    href: '/teacher/analytics',
   },
 ];
 
