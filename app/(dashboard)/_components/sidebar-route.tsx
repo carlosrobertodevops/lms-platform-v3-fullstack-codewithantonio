@@ -1,3 +1,5 @@
+`use client`;
+
 import { LucideIcon } from 'lucide-react';
 
 interface SidebarRouteProps {
