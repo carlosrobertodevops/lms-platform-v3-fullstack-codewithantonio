@@ -28,6 +28,11 @@ const FormWithoutReactHookForm = () => {
 
     console.log(result);
 
+    setEmail('');
+    setPassword('');
+    setConfirmPassword('');
+    setErrors([]);
+
     setIsSubmitting(false);
   };
 
