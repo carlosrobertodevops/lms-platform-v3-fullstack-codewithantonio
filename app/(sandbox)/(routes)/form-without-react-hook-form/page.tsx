@@ -16,7 +16,7 @@ const FormWithoutReactHookForm = () => {
     if (password !== confirmPassword) {
       setErrors(['Пароли не совпадают']);
       setIsSubmitting(false);
-      console.log(errors);
+
       return;
     }
 
@@ -33,6 +33,17 @@ const FormWithoutReactHookForm = () => {
 
   return (
     <form className='flex flex-col gap-y-2' onSubmit={handleSubmit}>
+      {errors.length > 0 && (
+        <ul>
+          {errors.map((error) => (
+            <li
+              key={error}
+              className='rounded bg-red-100 px-4 py-2 text-center text-red-500'>
+              {error}
+            </li>
+          ))}
+        </ul>
+      )}
       <input
         type='email'
         className='rounded px-4 py-2'
