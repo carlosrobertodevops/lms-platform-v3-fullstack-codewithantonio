@@ -6,10 +6,13 @@ const FormWithoutReactHookForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setIsSubmitting(true);
     console.log({ email, password, confirmPassword });
+    setIsSubmitting(false);
   };
 
   return (
