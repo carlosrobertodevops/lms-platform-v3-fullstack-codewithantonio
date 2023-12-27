@@ -8,10 +8,18 @@ const FormWithoutReactHookForm = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsSubmitting(true);
-    console.log({ email, password, confirmPassword });
+
+    const result = await new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('success');
+      }, 2000);
+    });
+
+    console.log(result);
+
     setIsSubmitting(false);
   };
 
@@ -44,6 +52,7 @@ const FormWithoutReactHookForm = () => {
       />
       <button
         type='submit'
+        disabled={isSubmitting}
         className='rounded bg-green-500 py-2 text-lg font-medium text-white disabled:bg-gray-500'>
         Отправить
       </button>
