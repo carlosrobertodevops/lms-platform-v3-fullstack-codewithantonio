@@ -7,10 +7,18 @@ const FormWithoutReactHookForm = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState<string[]>([]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsSubmitting(true);
+
+    if (password !== confirmPassword) {
+      setErrors(['Пароли не совпадают']);
+      setIsSubmitting(false);
+      console.log(errors);
+      return;
+    }
 
     const result = await new Promise((resolve, reject) => {
       setTimeout(() => {
