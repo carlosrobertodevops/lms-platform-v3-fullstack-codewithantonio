@@ -1,5 +1,6 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldValues, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -22,7 +23,7 @@ const FormWithReactHookFormAndZod = () => {
     handleSubmit,
     reset,
     formState: { isSubmitting, isValid, errors },
-  } = useForm({ mode: 'onBlur' });
+  } = useForm({ mode: 'onBlur', resolver: zodResolver(cyrillShema) });
 
   const onSubmit = async (data: FieldValues) => {
     const result = await new Promise((resolve, reject) =>
