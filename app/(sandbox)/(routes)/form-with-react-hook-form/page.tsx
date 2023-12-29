@@ -13,23 +13,32 @@ const FormWithReactHookForm = () => {
   return (
     <form className='flex flex-col gap-y-2'>
       <input
+        {...register('email', {
+          required: 'Email is required',
+        })}
         type='email'
         className='rounded px-4 py-2'
         placeholder='email'
-        required
       />
       <input
+        {...register('password', {
+          required: 'Password is required',
+          minLength: {
+            value: 6,
+            message: 'Password must be at least 6 characters',
+          },
+        })}
         type='password'
         className='rounded px-4 py-2'
         placeholder='password'
-        required
-        minLength={6}
       />
       <input
+        {...register('confirmPassword', {
+          required: 'Confirm password is required',
+        })}
         type='password'
         className='rounded px-4 py-2'
         placeholder='confirm password'
-        required
       />
       <button
         type='submit'
