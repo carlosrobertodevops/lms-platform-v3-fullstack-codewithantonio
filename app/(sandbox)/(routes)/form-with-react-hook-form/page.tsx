@@ -1,7 +1,7 @@
 'use client';
 
 import { FormEvent, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 
 const FormWithReactHookForm = () => {
   const {
@@ -12,8 +12,15 @@ const FormWithReactHookForm = () => {
     formState: { isSubmitting, isValid, errors },
   } = useForm();
 
+  const onSubmit = async (data: FieldValues) => {
+    const result = await new Promise((resolve, reject) =>
+      setTimeout(() => resolve('Успешный результат'), 2000),
+    );
+    console.log({ result });
+  };
+
   return (
-    <form className='flex flex-col gap-y-2'>
+    <form className='flex flex-col gap-y-2' onSubmit={handleSubmit(onSubmit)}>
       <input
         {...register('email', {
           required: 'Email is required',
