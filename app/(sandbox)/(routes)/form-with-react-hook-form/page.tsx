@@ -59,6 +59,8 @@ const FormWithReactHookForm = () => {
             value: 6,
             message: 'Confirm password must be at least 6 characters',
           },
+          validate: (value) =>
+            value === getValues('password') || `Password must match`,
         })}
         type='password'
         className='rounded px-4 py-2'
