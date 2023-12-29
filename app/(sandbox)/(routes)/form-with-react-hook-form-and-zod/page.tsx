@@ -1,11 +1,20 @@
+'use client';
+
 import { FieldValues, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-const cyrillShema = z.object({
-  email: z.string().email(),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
-  confirmPassword: z.string().min(6, 'Password must be at least 6 characters'),
-});
+const cyrillShema = z
+  .object({
+    email: z.string().email(),
+    password: z.string().min(6, 'Password must be at least 6 characters'),
+    confirmPassword: z
+      .string()
+      .min(6, 'Password must be at least 6 characters'),
+  })
+  .refine((values) => values.password === values.confirmPassword, {
+    message: 'Passwords must match or go fuck yourself!',
+    path: ['confirmPassword'],
+  });
 
 const FormWithReactHookFormAndZod = () => {
   const {
