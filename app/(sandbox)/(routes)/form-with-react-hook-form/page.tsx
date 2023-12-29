@@ -17,6 +17,7 @@ const FormWithReactHookForm = () => {
       setTimeout(() => resolve('Успешный результат'), 2000),
     );
     console.log({ result });
+    reset();
   };
 
   return (
@@ -51,6 +52,7 @@ const FormWithReactHookForm = () => {
       />
       <button
         type='submit'
+        disabled={isSubmitting || !isValid}
         className='rounded bg-green-500 py-2 text-lg font-medium text-white disabled:bg-gray-500'>
         Отправить
       </button>
