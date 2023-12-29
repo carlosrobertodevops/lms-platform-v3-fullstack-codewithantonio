@@ -1,11 +1,17 @@
 import { FieldValues, useForm } from 'react-hook-form';
+import { z } from 'zod';
+
+const cyrillShema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6, 'Password must be at least 6 characters'),
+  confirmPassword: z.string().min(6, 'Password must be at least 6 characters'),
+});
 
 const FormWithReactHookFormAndZod = () => {
   const {
     register,
     handleSubmit,
     reset,
-    getValues,
     formState: { isSubmitting, isValid, errors },
   } = useForm({ mode: 'onBlur' });
 
@@ -20,13 +26,7 @@ const FormWithReactHookFormAndZod = () => {
   return (
     <form className='flex flex-col gap-y-2' onSubmit={handleSubmit(onSubmit)}>
       <input
-        {...register('email', {
-          required: 'Email is required',
-          pattern: {
-            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-            message: 'Incorrect email',
-          },
-        })}
+        {...register('email')}
         type='email'
         className='rounded px-4 py-2'
         placeholder='email'
@@ -35,13 +35,7 @@ const FormWithReactHookFormAndZod = () => {
         <p className='text-red-500'>{`${errors.email.message}`}</p>
       )}
       <input
-        {...register('password', {
-          required: 'Password is required',
-          minLength: {
-            value: 6,
-            message: 'Password must be at least 6 characters',
-          },
-        })}
+        {...register('password')}
         type='password'
         className='rounded px-4 py-2'
         placeholder='password'
@@ -50,15 +44,7 @@ const FormWithReactHookFormAndZod = () => {
         <p className='text-red-500'>{`${errors.password.message}`}</p>
       )}
       <input
-        {...register('confirmPassword', {
-          required: 'Confirm password is required',
-          minLength: {
-            value: 6,
-            message: 'Confirm password must be at least 6 characters',
-          },
-          validate: (value) =>
-            value === getValues('password') || `Password must match`,
-        })}
+        {...register('confirmPassword')}
         type='password'
         className='rounded px-4 py-2'
         placeholder='confirm password'
