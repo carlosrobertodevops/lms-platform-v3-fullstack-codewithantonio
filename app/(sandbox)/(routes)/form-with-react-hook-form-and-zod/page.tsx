@@ -17,15 +17,20 @@ const cyrillShema = z
     path: ['confirmPassword'],
   });
 
+type CyrillShemaType = z.infer<typeof cyrillShema>;
+
 const FormWithReactHookFormAndZod = () => {
   const {
     register,
     handleSubmit,
     reset,
     formState: { isSubmitting, isValid, errors },
-  } = useForm({ mode: 'onBlur', resolver: zodResolver(cyrillShema) });
+  } = useForm<CyrillShemaType>({
+    mode: 'onBlur',
+    resolver: zodResolver(cyrillShema),
+  });
 
-  const onSubmit = async (data: FieldValues) => {
+  const onSubmit = async (data: CyrillShemaType) => {
     const result = await new Promise((resolve, reject) =>
       setTimeout(() => resolve('Успешный результат'), 2000),
     );
