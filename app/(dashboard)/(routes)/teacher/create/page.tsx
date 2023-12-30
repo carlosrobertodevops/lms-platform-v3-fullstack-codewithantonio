@@ -14,6 +14,7 @@ import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -24,6 +25,8 @@ const formSchema = z.object({
 type FormSchemaType = z.infer<typeof formSchema>;
 
 const CreatePage = () => {
+  const router = useRouter();
+
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -37,6 +40,7 @@ const CreatePage = () => {
   const onSubmit = async (values: FormSchemaType) => {
     try {
       const response = await axios.post('/api/courses', values);
+      router.push(`/teacher/courses/${response.data.id}`);
     } catch {
       console.log('Something went wrong');
     }
