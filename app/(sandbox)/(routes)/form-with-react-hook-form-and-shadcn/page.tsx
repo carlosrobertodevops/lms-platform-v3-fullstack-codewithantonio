@@ -29,13 +29,6 @@ const formSchema = z
 type FormSchemaType = z.infer<typeof formSchema>;
 
 const FormWithReactHookFormAndShadcn = () => {
-  const onSubmit = async (values: FormSchemaType) => {
-    const result = await new Promise((resolve, reject) =>
-      setTimeout(() => resolve('Success'), 2000),
-    );
-    console.log({ result });
-  };
-
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -45,6 +38,16 @@ const FormWithReactHookFormAndShadcn = () => {
     },
     mode: 'onBlur',
   });
+
+  const onSubmit = async (values: FormSchemaType) => {
+    const result = await new Promise((resolve, reject) =>
+      setTimeout(() => resolve('Success'), 2000),
+    );
+    form.reset();
+    console.log({ result });
+  };
+
+  const { isSubmitting, isValid } = form.formState;
 
   return (
     <Form {...form}>
@@ -56,7 +59,7 @@ const FormWithReactHookFormAndShadcn = () => {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input {...field} type='email' />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -69,7 +72,7 @@ const FormWithReactHookFormAndShadcn = () => {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input {...field} type='password' />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -83,13 +86,15 @@ const FormWithReactHookFormAndShadcn = () => {
             <FormItem>
               <FormLabel>Confirm Password</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input {...field} type='password' />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type='submit'>GFY</Button>
+        <Button type='submit' disabled={isSubmitting || !isValid}>
+          GFY
+        </Button>
       </form>
     </Form>
   );
