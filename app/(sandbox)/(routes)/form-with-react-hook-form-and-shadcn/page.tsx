@@ -1,5 +1,7 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 const formSchema = z
@@ -14,6 +16,16 @@ const formSchema = z
   });
 
 const FormWithReactHookFormAndShadcn = () => {
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+      confirmPassword: '',
+    },
+    mode: 'onBlur',
+  });
+
   return <div>This is FormWithReactHookFormAndShadcn</div>;
 };
 
