@@ -15,10 +15,17 @@ const formSchema = z
     path: ['confirmPassword'],
   });
 
-type FormShemaType = z.infer<typeof formSchema>;
+type FormSchemaType = z.infer<typeof formSchema>;
 
 const FormWithReactHookFormAndShadcn = () => {
-  const form = useForm<FormShemaType>({
+  const onSubmit = async (values: FormSchemaType) => {
+    const result = await new Promise((resolve, reject) =>
+      setTimeout(() => resolve('Success'), 2000),
+    );
+    console.log({ result });
+  };
+
+  const form = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: '',
