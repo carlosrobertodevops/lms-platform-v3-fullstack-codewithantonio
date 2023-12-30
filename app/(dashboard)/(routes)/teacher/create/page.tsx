@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
+import axios from 'axios';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -33,8 +34,12 @@ const CreatePage = () => {
 
   const { isSubmitting, isValid } = form.formState;
 
-  const onSubmit = (values: FormSchemaType) => {
-    console.log(values);
+  const onSubmit = async (values: FormSchemaType) => {
+    try {
+      const response = await axios.post('/api/courses', values);
+    } catch {
+      console.log('Something went wrong');
+    }
   };
 
   return (
