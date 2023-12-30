@@ -1,5 +1,6 @@
 'use client';
 
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -11,6 +12,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
+import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -67,6 +69,16 @@ const CreatePage = () => {
                 </FormItem>
               )}
             />
+            <div className='flex items-center gap-x-2'>
+              <Link href={'/teacher/courses'}>
+                <Button type='button' variant={'ghost'}>
+                  Cancel
+                </Button>
+              </Link>
+              <Button type='submit' disabled={isSubmitting || !isValid}>
+                Continue
+              </Button>
+            </div>
           </form>
         </Form>
       </div>
