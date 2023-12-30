@@ -1,5 +1,7 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 const formSchema = z.object({
@@ -9,6 +11,16 @@ const formSchema = z.object({
 type FormSchemaType = z.infer<typeof formSchema>;
 
 const CreatePage = () => {
+  const form = useForm<FormSchemaType>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      title: '',
+    },
+    mode: 'onBlur',
+  });
+
+  const { isSubmitting, isValid } = form.formState;
+
   return <div>This is a create page</div>;
 };
 
