@@ -9,3 +9,38 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model Course {
+  id          String   @id @default(uuid())
+  userId      String
+  title       String   @db.Text
+  description String?  @db.Text
+  imageUrl    String?  @db.Text
+  price       Float?
+  isPublished Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  attachments Attachment[]
+
+  categoryId String?
+  Category   Category? @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+}
+
+model Attachment {
+  id        String   @id @default(uuid())
+  name      String
+  url       String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+}
+
+model Category {
+  id   String @id @default(uuid())
+  name String @unique
+
+  courses Course[]
+}
