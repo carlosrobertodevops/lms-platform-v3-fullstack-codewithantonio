@@ -42,7 +42,15 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
           </span>
         </div>
       </div>
-      <div className='mt-16 grid grid-cols-1 gap-6 md:grid-cols-2'></div>
+      <div className='mt-16 grid grid-cols-1 gap-6 md:grid-cols-2'>
+        {/* Section `Customize your course` starts */}
+        <div>
+          <div className='flex items-center gap-x-2'>
+            <h2 className='text-xl'>Customize your course</h2>
+          </div>
+        </div>
+        {/* Section `Customize your course` ends */}
+      </div>
     </div>
   );
 };
