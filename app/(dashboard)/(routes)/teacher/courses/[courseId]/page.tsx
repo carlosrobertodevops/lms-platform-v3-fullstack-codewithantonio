@@ -42,6 +42,7 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
           </span>
         </div>
       </div>
+      <div className='mt-16 grid grid-cols-1 gap-6 md:grid-cols-2'></div>
     </div>
   );
 };
