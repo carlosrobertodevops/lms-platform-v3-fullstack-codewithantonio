@@ -46,7 +46,11 @@ interface IconBadgeProps extends BackgroundVariantsProps, IconVariantsProps {
 }
 
 const IconBadge = ({ icon: Icon, size, variant }: IconBadgeProps) => {
-  return <div className=''>This is an icon badge</div>;
+  return (
+    <div className={backgroundVariants({ variant, size })}>
+      <Icon className={iconVariants({ variant, size })} />
+    </div>
+  );
 };
 
 export default IconBadge;
