@@ -25,6 +25,11 @@ const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
   });
 
   const { isValid, isSubmitting } = form.formState;
+
+  const onSubmit = (values: TitleFormSchemaType) => {
+    console.log(values);
+  };
+
   return <div>This is title form</div>;
 };
 
