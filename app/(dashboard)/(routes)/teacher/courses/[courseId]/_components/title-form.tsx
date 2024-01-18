@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { PencilIcon } from 'lucide-react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -18,6 +19,8 @@ const titleFormSchema = z.object({
 type TitleFormSchemaType = z.infer<typeof titleFormSchema>;
 
 const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
+  const [isEditing, setIsEditing] = useState(false);
+
   const form = useForm<TitleFormSchemaType>({
     mode: 'onBlur',
     resolver: zodResolver(titleFormSchema),
@@ -28,6 +31,8 @@ const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
 
   const { isValid, isSubmitting } = form.formState;
 
+  const toggleIsEditing = () => setIsEditing((prevState) => !prevState);
+
   const onSubmit = (values: TitleFormSchemaType) => {
     console.log(values);
   };
@@ -36,9 +41,15 @@ const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
     <div className='mt-6 rounded-md border bg-slate-100 p-4'>
       <div className='flex items-center justify-between font-medium'>
         Course Title
-        <Button variant={'ghost'}>
-          <PencilIcon className='mr-2 h-4 w-4' />
-          Edit
+        <Button variant={'ghost'} onClick={toggleIsEditing}>
+          {isEditing ? (
+            <>Cancel</>
+          ) : (
+            <>
+              <PencilIcon className='mr-2 h-4 w-4' />
+              Edit
+            </>
+          )}
         </Button>
       </div>
     </div>
