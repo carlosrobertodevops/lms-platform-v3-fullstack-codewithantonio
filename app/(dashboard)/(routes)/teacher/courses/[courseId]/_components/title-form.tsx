@@ -1,6 +1,14 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { PencilIcon } from 'lucide-react';
 import { useState } from 'react';
@@ -53,6 +61,31 @@ const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
         </Button>
       </div>
       {!isEditing && <p className='mt-2 text-sm'>{initialData.title}</p>}
+
+      {isEditing && (
+        <Form {...form}>
+          <form
+            className='mt-4 space-y-4'
+            onSubmit={form.handleSubmit(onSubmit)}>
+            <FormField
+              control={form.control}
+              name='title'
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      placeholder='e.g. "Advanced web development'
+                      {...field}
+                      disabled={isSubmitting}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </form>
+        </Form>
+      )}
     </div>
   );
 };
