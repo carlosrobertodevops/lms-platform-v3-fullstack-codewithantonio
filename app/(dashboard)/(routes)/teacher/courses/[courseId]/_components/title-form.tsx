@@ -10,9 +10,12 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
+import axios from 'axios';
 import { PencilIcon } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { z } from 'zod';
 
 interface TitleFormProps {
@@ -28,6 +31,7 @@ type TitleFormSchemaType = z.infer<typeof titleFormSchema>;
 
 const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
+  const router = useRouter();
 
   const form = useForm<TitleFormSchemaType>({
     mode: 'onBlur',
@@ -41,8 +45,15 @@ const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
 
   const toggleIsEditing = () => setIsEditing((prevState) => !prevState);
 
-  const onSubmit = (values: TitleFormSchemaType) => {
-    console.log(values);
+  const onSubmit = async (values: TitleFormSchemaType) => {
+    try {
+      await axios.patch(`/api/courses/${courseId}`, values);
+      toast.success('Course updated');
+      toggleIsEditing();
+      router.refresh();
+    } catch {
+      toast.error('Something went wrong');
+    }
   };
 
   return (
