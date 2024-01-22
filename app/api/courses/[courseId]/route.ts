@@ -1,7 +1,11 @@
 import { auth } from '@clerk/nextjs';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function PATCH(request: NextRequest) {
+interface ContextProps {
+  params: { courseId: 'string' };
+}
+
+export async function PATCH(request: NextRequest, { params }: ContextProps) {
   try {
     const { userId } = auth();
     const values = await request.json();
