@@ -19,12 +19,12 @@ import toast from 'react-hot-toast';
 import { z } from 'zod';
 
 interface DescriptionFormProps {
-  initialData: { title: string };
+  initialData: { description: string | null };
   courseId: string;
 }
 
 const DescriptionFormSchema = z.object({
-  title: z.string().trim().min(1, 'Title is required'),
+  description: z.string().trim().min(1, 'Description is required'),
 });
 
 type DescriptionFormSchemaType = z.infer<typeof DescriptionFormSchema>;
@@ -37,7 +37,7 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps) => {
     mode: 'onBlur',
     resolver: zodResolver(DescriptionFormSchema),
     defaultValues: {
-      title: initialData?.title,
+      description: initialData?.description ?? '',
     },
   });
 
@@ -71,7 +71,7 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps) => {
           )}
         </Button>
       </div>
-      {!isEditing && <p className='mt-2 text-sm'>{initialData.title}</p>}
+      {!isEditing && <p className='mt-2 text-sm'>{initialData.description}</p>}
 
       {isEditing && (
         <Form {...form}>
@@ -80,7 +80,7 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps) => {
             onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
-              name='title'
+              name='description'
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
