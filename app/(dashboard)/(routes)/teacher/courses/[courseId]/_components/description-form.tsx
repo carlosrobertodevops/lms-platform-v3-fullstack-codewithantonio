@@ -9,6 +9,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { PencilIcon } from 'lucide-react';
@@ -59,7 +60,7 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps) => {
   return (
     <div className='mt-6 rounded-md border bg-slate-100 p-4'>
       <div className='flex items-center justify-between font-medium'>
-        Course Title
+        Course Description
         <Button variant={'ghost'} onClick={toggleIsEditing}>
           {isEditing ? (
             <>Cancel</>
@@ -71,7 +72,15 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps) => {
           )}
         </Button>
       </div>
-      {!isEditing && <p className='mt-2 text-sm'>{initialData.description}</p>}
+      {!isEditing && (
+        <p
+          className={cn(
+            'mt-2 text-sm',
+            !initialData.description && 'italic text-slate-500',
+          )}>
+          {initialData.description ?? 'No description'}
+        </p>
+      )}
 
       {isEditing && (
         <Form {...form}>
