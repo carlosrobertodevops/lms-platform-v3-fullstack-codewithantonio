@@ -23,6 +23,16 @@ export const ourFileRouter = {
     .middleware(() => handleAuth())
     // Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
     .onUploadComplete(() => {}),
+
+  courseAttachment: f({
+    image: { maxFileSize: '16MB' },
+    pdf: { maxFileSize: '16MB' },
+    audio: { maxFileSize: '16MB' },
+    text: { maxFileSize: '16MB' },
+    video: { maxFileSize: '1GB' },
+  })
+    .middleware(() => handleAuth())
+    .onUploadComplete(() => {}),
 } satisfies FileRouter;
 
 export type OurFileRouter = typeof ourFileRouter;
