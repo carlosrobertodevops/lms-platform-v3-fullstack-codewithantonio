@@ -8,6 +8,7 @@ import { ImageIcon, PencilIcon, PlusCircle } from 'lucide-react';
 
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import Image from 'next/image';
 
 interface ImageFormProps {
   initialData: { imageUrl: string | null };
@@ -51,13 +52,23 @@ const ImageForm = ({ initialData, courseId }: ImageFormProps) => {
           )}
         </Button>
       </div>
+
       {!isEditing && !initialData.imageUrl && (
         <div className='flex h-60 items-center justify-center rounded-md bg-slate-200'>
           <ImageIcon className='h-10 w-10 text-slate-500' />
         </div>
       )}
 
-      {isEditing && <></>}
+      {!isEditing && initialData.imageUrl && (
+        <div className='relative mt-2 aspect-video'>
+          <Image
+            className='object-cover'
+            alt='Course image'
+            src={initialData.imageUrl}
+            fill
+          />
+        </div>
+      )}
     </div>
   );
 };
