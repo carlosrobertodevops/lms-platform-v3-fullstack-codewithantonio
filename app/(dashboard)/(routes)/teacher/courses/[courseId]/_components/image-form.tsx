@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
-import { PencilIcon } from 'lucide-react';
+import { PencilIcon, PlusCircle } from 'lucide-react';
 
 import axios from 'axios';
 import toast from 'react-hot-toast';
@@ -36,12 +36,17 @@ const ImageForm = ({ initialData, courseId }: ImageFormProps) => {
       <div className='flex items-center justify-between font-medium'>
         Course Image
         <Button variant={'ghost'} onClick={toggleIsEditing}>
-          {isEditing ? (
-            <>Cancel</>
-          ) : (
+          {isEditing && <>Cancel</>}
+          {!isEditing && initialData.imageUrl && (
             <>
               <PencilIcon className='mr-2 h-4 w-4' />
               Edit
+            </>
+          )}
+          {!isEditing && !initialData.imageUrl && (
+            <>
+              <PlusCircle className='mr-2 h-4 w-4' />
+              Add
             </>
           )}
         </Button>
