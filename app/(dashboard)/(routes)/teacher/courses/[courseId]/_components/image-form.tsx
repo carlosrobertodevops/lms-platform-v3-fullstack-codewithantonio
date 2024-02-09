@@ -9,6 +9,7 @@ import { ImageIcon, PencilIcon, PlusCircle } from 'lucide-react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import Image from 'next/image';
+import FileUpload from '@/components/file-upload';
 
 interface ImageFormProps {
   initialData: { imageUrl: string | null };
@@ -60,14 +61,26 @@ const ImageForm = ({ initialData, courseId }: ImageFormProps) => {
       )}
 
       {!isEditing && initialData.imageUrl && (
-        <div className='relative mt-2 aspect-video'>
+        <div className='relative mt-2 aspect-video '>
           <Image
-            className='object-cover'
+            className='rounded-md object-cover'
             alt='Course image'
             src={initialData.imageUrl}
             fill
           />
         </div>
+      )}
+
+      {isEditing && (
+        <>
+          <FileUpload
+            endpoint='courseImage'
+            onChange={(url) => onSubmit({ imageUrl: url })}
+          />
+          <p className='mt-4 text-center text-xs text-muted-foreground'>
+            16:9 aspect ratio is recommended
+          </p>
+        </>
       )}
     </div>
   );
