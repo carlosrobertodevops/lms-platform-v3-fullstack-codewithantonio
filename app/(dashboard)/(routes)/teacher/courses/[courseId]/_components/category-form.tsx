@@ -41,7 +41,7 @@ const CategoryForm = ({
   const router = useRouter();
 
   const form = useForm<CategoryFormSchemaType>({
-    mode: 'onBlur',
+    mode: 'onChange',
     resolver: zodResolver(categoryFormSchema),
     defaultValues: {
       categoryId: initialData?.categoryId ?? '',

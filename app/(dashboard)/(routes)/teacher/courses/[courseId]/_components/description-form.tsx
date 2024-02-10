@@ -35,7 +35,7 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps) => {
   const router = useRouter();
 
   const form = useForm<DescriptionFormSchemaType>({
-    mode: 'onBlur',
+    mode: 'onChange',
     resolver: zodResolver(descriptionFormSchema),
     defaultValues: {
       description: initialData?.description ?? '',
