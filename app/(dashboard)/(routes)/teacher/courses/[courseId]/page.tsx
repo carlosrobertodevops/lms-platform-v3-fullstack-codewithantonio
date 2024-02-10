@@ -18,6 +18,11 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
   const { userId } = auth();
 
   const course = await db.course.findUnique({ where: { id: courseId } });
+  const categories = await db.category.findMany({
+    orderBy: {
+      name: 'asc',
+    },
+  });
 
   if (!course || userId !== course.userId) {
     return redirect('/');
@@ -57,6 +62,11 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
           <TitleForm initialData={course} courseId={course.id} />
           <DescriptionForm initialData={course} courseId={course.id} />
           <ImageForm initialData={course} courseId={course.id} />
+          <CategoryForm
+            initialData={course}
+            courseId={course.id}
+            categories={categories}
+          />
         </div>
         {/* Section `Customize your course` ends */}
       </div>
