@@ -17,7 +17,7 @@ const main = async () => {
     });
     console.log('Categories seeded');
   } catch (error) {
-    console.log(' Error of seeding the database categories');
+    console.log('Error of seeding the database categories');
   } finally {
     await database.$disconnect();
   }
