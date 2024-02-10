@@ -24,11 +24,11 @@ interface DescriptionFormProps {
   courseId: string;
 }
 
-const DescriptionFormSchema = z.object({
+const descriptionFormSchema = z.object({
   description: z.string().trim().min(1, 'Description is required'),
 });
 
-type DescriptionFormSchemaType = z.infer<typeof DescriptionFormSchema>;
+type DescriptionFormSchemaType = z.infer<typeof descriptionFormSchema>;
 
 const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -36,7 +36,7 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps) => {
 
   const form = useForm<DescriptionFormSchemaType>({
     mode: 'onBlur',
-    resolver: zodResolver(DescriptionFormSchema),
+    resolver: zodResolver(descriptionFormSchema),
     defaultValues: {
       description: initialData?.description ?? '',
     },
