@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import { Combobox } from '@/components/ui/combobox';
 import {
   Form,
   FormControl,
@@ -26,7 +27,7 @@ interface CategoryFormProps {
 }
 
 const categoryFormSchema = z.object({
-  categoryId: z.string().min(1),
+  categoryId: z.string().trim().min(1, 'Category is required'),
 });
 
 type CategoryFormSchemaType = z.infer<typeof categoryFormSchema>;
@@ -101,7 +102,16 @@ const CategoryForm = ({
               name='categoryId'
               render={({ field }) => (
                 <FormItem>
-                  <FormControl></FormControl>
+                  <FormControl>
+                    <Combobox
+                      value={field.value}
+                      onChange={field.onChange}
+                      options={categories.map((category) => ({
+                        label: category.name,
+                        value: category.id,
+                      }))}
+                    />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
