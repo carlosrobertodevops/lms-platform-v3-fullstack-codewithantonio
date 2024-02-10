@@ -8,7 +8,7 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form';
-import { Textarea } from '@/components/ui/textarea';
+
 import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
@@ -25,11 +25,11 @@ interface CategoryFormProps {
   categories: { name: string; id: string }[];
 }
 
-const DescriptionFormSchema = z.object({
-  description: z.string().trim().min(1, 'Description is required'),
+const categoryFormSchema = z.object({
+  categoryId: z.string().min(1),
 });
 
-type DescriptionFormSchemaType = z.infer<typeof DescriptionFormSchema>;
+type CategoryFormSchemaType = z.infer<typeof categoryFormSchema>;
 
 const CategoryForm = ({
   initialData,
@@ -39,11 +39,11 @@ const CategoryForm = ({
   const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
 
-  const form = useForm<DescriptionFormSchemaType>({
+  const form = useForm<CategoryFormSchemaType>({
     mode: 'onBlur',
-    resolver: zodResolver(DescriptionFormSchema),
+    resolver: zodResolver(categoryFormSchema),
     defaultValues: {
-      description: initialData?.description ?? '',
+      categoryId: initialData?.categoryId ?? '',
     },
   });
 
@@ -51,7 +51,7 @@ const CategoryForm = ({
 
   const toggleIsEditing = () => setIsEditing((prevState) => !prevState);
 
-  const onSubmit = async (values: DescriptionFormSchemaType) => {
+  const onSubmit = async (values: CategoryFormSchemaType) => {
     try {
       await axios.patch(`/api/courses/${courseId}`, values);
       toast.success('Course updated');
@@ -62,10 +62,14 @@ const CategoryForm = ({
     }
   };
 
+  const selectedCategorie = categories.find(
+    (category) => category.id === initialData.categoryId,
+  )?.name;
+
   return (
     <div className='mt-6 rounded-md border bg-slate-100 p-4'>
       <div className='flex items-center justify-between font-medium'>
-        Course Description
+        Course Category
         <Button variant={'ghost'} onClick={toggleIsEditing}>
           {isEditing ? (
             <>Cancel</>
@@ -81,9 +85,9 @@ const CategoryForm = ({
         <p
           className={cn(
             'mt-2 text-sm',
-            !initialData.description && 'italic text-slate-500',
+            !initialData.categoryId && 'italic text-slate-500',
           )}>
-          {initialData.description ?? 'No description'}
+          {selectedCategorie ?? 'No category'}
         </p>
       )}
 
@@ -94,16 +98,10 @@ const CategoryForm = ({
             onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
-              name='description'
+              name='categoryId'
               render={({ field }) => (
                 <FormItem>
-                  <FormControl>
-                    <Textarea
-                      placeholder='e.g. "This course is about..."'
-                      {...field}
-                      disabled={isSubmitting}
-                    />
-                  </FormControl>
+                  <FormControl></FormControl>
                   <FormMessage />
                 </FormItem>
               )}
