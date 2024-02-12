@@ -1,7 +1,7 @@
 import IconBadge from '@/components/icon-badge';
 import { db } from '@/lib/db';
 import { auth } from '@clerk/nextjs';
-import { LayoutDashboard } from 'lucide-react';
+import { LayoutDashboard, ListChecks } from 'lucide-react';
 import { redirect } from 'next/navigation';
 import TitleForm from './_components/title-form';
 import DescriptionForm from './_components/description-form';
@@ -70,6 +70,16 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
           />
         </div>
         {/* Section `Customize your course` ends */}
+        <div className='space-y-6'>
+          {/* Section `Course Chapters` starts */}
+          <div>
+            <div className='flex items-center gap-x-2'>
+              <IconBadge icon={ListChecks} />
+              <h2 className='text-xl'>Course Chapters</h2>
+            </div>
+          </div>
+          {/* Section `Course Chapters` ends */}
+        </div>
       </div>
     </div>
   );
