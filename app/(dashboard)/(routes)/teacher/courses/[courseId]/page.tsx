@@ -7,6 +7,7 @@ import TitleForm from './_components/title-form';
 import DescriptionForm from './_components/description-form';
 import ImageForm from './_components/image-form';
 import CategoryForm from './_components/category-form';
+import PriceForm from './_components/price-form';
 
 interface CourseIdPageProps {
   params: {
@@ -85,6 +86,7 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
               <IconBadge icon={CircleDollarSign} />
               <h2 className='text-xl'>Sell your course</h2>
             </div>
+            <PriceForm initialData={course} courseId={course.id} />
           </div>
           {/* Section `Sell your course` ends */}
         </div>
