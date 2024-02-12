@@ -34,7 +34,7 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
     course.title,
     course.description,
     course.imageUrl,
-    course.price,
+    course.price !== null,
     course.categoryId,
   ];
 
