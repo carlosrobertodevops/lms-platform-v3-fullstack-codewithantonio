@@ -8,7 +8,7 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form';
-import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
@@ -19,26 +19,31 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { z } from 'zod';
 
-interface DescriptionFormProps {
-  initialData: { description: string | null };
+interface PriceFormProps {
+  initialData: { price: number | null };
   courseId: string;
 }
 
-const descriptionFormSchema = z.object({
-  description: z.string().trim().min(1, 'Description is required'),
+const priceFormSchema = z.object({
+  price: z.preprocess(
+    (numb) => parseFloat(numb as string),
+    z
+      .number({ invalid_type_error: 'Number is required' })
+      .nonnegative('Number must be equal or greater than 0'),
+  ),
 });
 
-type DescriptionFormSchemaType = z.infer<typeof descriptionFormSchema>;
+type PriceFormSchemaType = z.infer<typeof priceFormSchema>;
 
-const PriceForm = ({ initialData, courseId }: DescriptionFormProps) => {
+const PriceForm = ({ initialData, courseId }: PriceFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
 
-  const form = useForm<DescriptionFormSchemaType>({
+  const form = useForm<PriceFormSchemaType>({
     mode: 'onChange',
-    resolver: zodResolver(descriptionFormSchema),
+    resolver: zodResolver(priceFormSchema),
     defaultValues: {
-      description: initialData?.description ?? '',
+      price: initialData?.price ?? 0,
     },
   });
 
@@ -46,7 +51,7 @@ const PriceForm = ({ initialData, courseId }: DescriptionFormProps) => {
 
   const toggleIsEditing = () => setIsEditing((prevState) => !prevState);
 
-  const onSubmit = async (values: DescriptionFormSchemaType) => {
+  const onSubmit = async (values: PriceFormSchemaType) => {
     try {
       await axios.patch(`/api/courses/${courseId}`, values);
       toast.success('Course updated');
@@ -60,7 +65,7 @@ const PriceForm = ({ initialData, courseId }: DescriptionFormProps) => {
   return (
     <div className='mt-6 rounded-md border bg-slate-100 p-4'>
       <div className='flex items-center justify-between font-medium'>
-        Course Description
+        Course Price
         <Button variant={'ghost'} onClick={toggleIsEditing}>
           {isEditing ? (
             <>Cancel</>
@@ -76,9 +81,9 @@ const PriceForm = ({ initialData, courseId }: DescriptionFormProps) => {
         <p
           className={cn(
             'mt-2 text-sm',
-            !initialData.description && 'italic text-slate-500',
+            initialData.price ?? 'italic text-slate-500',
           )}>
-          {initialData.description ?? 'No description'}
+          {initialData.price ?? 'No price'}
         </p>
       )}
 
@@ -89,14 +94,16 @@ const PriceForm = ({ initialData, courseId }: DescriptionFormProps) => {
             onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
-              name='description'
+              name='price'
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Textarea
-                      placeholder='e.g. "This course is about..."'
-                      {...field}
+                    <Input
+                      placeholder='Set a price for your course'
+                      type='number'
+                      step={0.01}
                       disabled={isSubmitting}
+                      {...field}
                     />
                   </FormControl>
                   <FormMessage />
