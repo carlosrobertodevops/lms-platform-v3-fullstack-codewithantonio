@@ -89,6 +89,14 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
             <PriceForm initialData={course} courseId={course.id} />
           </div>
           {/* Section `Sell your course` ends */}
+          {/* Section `Resources & Attachments` starts */}
+          <div>
+            <div className='flex items-center gap-x-2'>
+              <IconBadge icon={File} />
+              <h2 className='text-xl'>Resources & Attachments</h2>
+            </div>
+          </div>
+          {/* Section `Resources & Attachments` ends */}
         </div>
       </div>
     </div>
