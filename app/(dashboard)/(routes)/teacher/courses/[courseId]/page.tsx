@@ -25,7 +25,10 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
   const { courseId } = params;
   const { userId } = auth();
 
-  const course = await db.course.findUnique({ where: { id: courseId } });
+  const course = await db.course.findUnique({
+    where: { id: courseId },
+    include: { attachments: { orderBy: { createdAt: 'desc' } } },
+  });
   const categories = await db.category.findMany({
     orderBy: {
       name: 'asc',
