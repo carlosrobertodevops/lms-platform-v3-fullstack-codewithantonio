@@ -49,7 +49,7 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps) => {
   const onSubmit = async (values: DescriptionFormSchemaType) => {
     try {
       await axios.patch(`/api/courses/${courseId}`, values);
-      toast.success('Course updated');
+      toast.success('Course is updated');
       toggleIsEditing();
       router.refresh();
     } catch {

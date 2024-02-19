@@ -25,7 +25,7 @@ const ImageForm = ({ initialData, courseId }: ImageFormProps) => {
   const onSubmit = async (values: { imageUrl: string }) => {
     try {
       await axios.patch(`/api/courses/${courseId}`, values);
-      toast.success('Course updated');
+      toast.success('Course is updated');
       toggleIsEditing();
       router.refresh();
     } catch {
