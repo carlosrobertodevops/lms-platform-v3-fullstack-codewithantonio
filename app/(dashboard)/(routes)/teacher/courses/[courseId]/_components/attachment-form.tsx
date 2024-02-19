@@ -10,13 +10,14 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import Image from 'next/image';
 import FileUpload from '@/components/file-upload';
+import { Attachment, Course } from '@prisma/client';
 
-interface ImageFormProps {
-  initialData: { imageUrl: string | null };
+interface AttachmentFormProps {
+  initialData: Course & { attachments: Attachment[] };
   courseId: string;
 }
 
-const AttachmentForm = ({ initialData, courseId }: ImageFormProps) => {
+const AttachmentForm = ({ initialData, courseId }: AttachmentFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
 
