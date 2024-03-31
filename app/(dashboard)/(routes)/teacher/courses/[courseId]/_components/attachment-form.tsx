@@ -34,6 +34,19 @@ const AttachmentForm = ({ initialData, courseId }: AttachmentFormProps) => {
     }
   };
 
+  const onDelete = async (id: string) => {
+    try {
+      setIdToDelete(id);
+      await axios.delete(`/api/courses/${courseId}/attachments/${id}`);
+      toast.success('Attachment is deleted');
+      router.refresh();
+    } catch {
+      toast.error('Something went wrong');
+    } finally {
+      setIdToDelete('');
+    }
+  };
+
   return (
     <div className='mt-6 rounded-md border bg-slate-100 p-4'>
       <div className='flex items-center justify-between font-medium'>
@@ -76,7 +89,9 @@ const AttachmentForm = ({ initialData, courseId }: AttachmentFormProps) => {
               {idToDelete === attachment.id ? (
                 <Loader2 className='ml-auto h-4 w-4 animate-spin' />
               ) : (
-                <button className='ml-auto transition hover:opacity-75'>
+                <button
+                  className='ml-auto transition hover:opacity-75'
+                  onClick={() => onDelete(attachment.id)}>
                   <X className='h-4 w-4' />
                 </button>
               )}
