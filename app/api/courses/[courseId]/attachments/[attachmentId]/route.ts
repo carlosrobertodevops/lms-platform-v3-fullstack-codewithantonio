@@ -28,6 +28,8 @@ export async function DELETE(request: NextRequest, { params }: ContextProps) {
         id: params.attachmentId,
       },
     });
+
+    return NextResponse.json(attachment);
   } catch (error) {
     console.log('[ATTACHMENT_ID]', error);
     return new NextResponse('Internal Error', { status: 500 });
