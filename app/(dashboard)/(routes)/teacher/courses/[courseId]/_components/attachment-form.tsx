@@ -59,6 +59,10 @@ const AttachmentForm = ({ initialData, courseId }: AttachmentFormProps) => {
           </p>
         </>
       )}
+
+      {!isEditing && initialData.attachments.length === 0 && (
+        <p className='mt-2 text-sm italic text-slate-500'>No attachments yet</p>
+      )}
     </div>
   );
 };
