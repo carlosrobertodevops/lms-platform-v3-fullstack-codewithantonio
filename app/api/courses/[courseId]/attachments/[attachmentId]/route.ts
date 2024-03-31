@@ -1,6 +1,7 @@
 import { db } from '@/lib/db';
 import { auth } from '@clerk/nextjs';
 import { NextRequest, NextResponse } from 'next/server';
+import { UTApi } from 'uploadthing/server';
 
 interface ContextProps {
   params: { courseId: 'string'; attachmentId: 'string' };
@@ -9,6 +10,7 @@ interface ContextProps {
 export async function DELETE(request: NextRequest, { params }: ContextProps) {
   try {
     const { userId } = auth();
+    const utApi = new UTApi();
 
     if (!userId) {
       return new NextResponse('Unauthorized', { status: 401 });
@@ -28,6 +30,8 @@ export async function DELETE(request: NextRequest, { params }: ContextProps) {
         id: params.attachmentId,
       },
     });
+
+    await utApi.deleteFiles(attachment.name);
 
     return NextResponse.json(attachment);
   } catch (error) {
