@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
-import { File, PlusCircle } from 'lucide-react';
+import { File, Loader2, PlusCircle, X } from 'lucide-react';
 
 import axios from 'axios';
 import toast from 'react-hot-toast';
@@ -18,6 +18,7 @@ interface AttachmentFormProps {
 
 const AttachmentForm = ({ initialData, courseId }: AttachmentFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [idToDelete, setIdToDelete] = useState('');
   const router = useRouter();
 
   const toggleIsEditing = () => setIsEditing((prevState) => !prevState);
@@ -72,6 +73,13 @@ const AttachmentForm = ({ initialData, courseId }: AttachmentFormProps) => {
               className='flex w-full items-center rounded-md border border-sky-200 bg-sky-100 p-3 text-sky-700'>
               <File className='mr-2 h-4 w-4 flex-shrink-0' />
               <p className='mr-2 line-clamp-1 text-xs'>{attachment.name}</p>
+              {idToDelete === attachment.id ? (
+                <Loader2 className='ml-auto h-4 w-4 animate-spin' />
+              ) : (
+                <button className='ml-auto transition hover:opacity-75'>
+                  <X className='h-4 w-4' />
+                </button>
+              )}
             </div>
           ))}
         </div>
