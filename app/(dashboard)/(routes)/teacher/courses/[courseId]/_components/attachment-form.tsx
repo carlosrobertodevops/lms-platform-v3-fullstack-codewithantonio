@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
-import { PlusCircle } from 'lucide-react';
+import { File, PlusCircle } from 'lucide-react';
 
 import axios from 'axios';
 import toast from 'react-hot-toast';
@@ -62,6 +62,19 @@ const AttachmentForm = ({ initialData, courseId }: AttachmentFormProps) => {
 
       {!isEditing && initialData.attachments.length === 0 && (
         <p className='mt-2 text-sm italic text-slate-500'>No attachments yet</p>
+      )}
+
+      {!isEditing && initialData.attachments.length !== 0 && (
+        <div className='space-y-2'>
+          {initialData.attachments.map((attachment) => (
+            <div
+              key={attachment.id}
+              className='flex w-full items-center rounded-md border border-sky-200 bg-sky-100 p-3 text-sky-700'>
+              <File className='mr-2 h-4 w-4 flex-shrink-0' />
+              <p className='mr-2 line-clamp-1 text-xs'>{attachment.name}</p>
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );
