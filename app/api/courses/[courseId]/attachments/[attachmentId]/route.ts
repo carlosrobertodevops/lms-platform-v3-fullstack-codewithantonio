@@ -21,6 +21,13 @@ export async function DELETE(request: NextRequest, { params }: ContextProps) {
     if (!courseOwner) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
+
+    const attachment = await db.attachment.delete({
+      where: {
+        courseId: params.courseId,
+        id: params.attachmentId,
+      },
+    });
   } catch (error) {
     console.log('[ATTACHMENT_ID]', error);
     return new NextResponse('Internal Error', { status: 500 });
