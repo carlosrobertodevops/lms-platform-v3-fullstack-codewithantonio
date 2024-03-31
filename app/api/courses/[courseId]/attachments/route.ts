@@ -22,6 +22,14 @@ export async function POST(request: NextRequest, { params }: ContextProps) {
     if (!courseOwner) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
+
+    const attachment = await db.attachment.create({
+      data: {
+        url,
+        name: url.split('/').pop(),
+        courseId: params.courseId,
+      },
+    });
   } catch (error) {
     console.log('[ATTACHMENTS]', error);
     return new NextResponse('Internal Error', { status: 500 });
