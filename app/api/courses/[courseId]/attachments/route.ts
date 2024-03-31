@@ -30,6 +30,8 @@ export async function POST(request: NextRequest, { params }: ContextProps) {
         courseId: params.courseId,
       },
     });
+
+    return NextResponse.json(attachment);
   } catch (error) {
     console.log('[ATTACHMENTS]', error);
     return new NextResponse('Internal Error', { status: 500 });
