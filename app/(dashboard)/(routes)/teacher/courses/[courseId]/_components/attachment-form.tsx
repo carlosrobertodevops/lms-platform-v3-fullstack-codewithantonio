@@ -74,30 +74,36 @@ const AttachmentForm = ({ initialData, courseId }: AttachmentFormProps) => {
         </>
       )}
 
-      {!isEditing && initialData.attachments.length === 0 && (
-        <p className='mt-2 text-sm italic text-slate-500'>No attachments yet</p>
-      )}
+      {!isEditing && (
+        <>
+          {initialData.attachments.length === 0 && (
+            <p className='mt-2 text-sm italic text-slate-500'>
+              No attachments yet
+            </p>
+          )}
 
-      {!isEditing && initialData.attachments.length !== 0 && (
-        <div className='space-y-2'>
-          {initialData.attachments.map((attachment) => (
-            <div
-              key={attachment.id}
-              className='flex w-full items-center rounded-md border border-sky-200 bg-sky-100 p-3 text-sky-700'>
-              <File className='mr-2 h-4 w-4 flex-shrink-0' />
-              <p className='mr-2 line-clamp-1 text-xs'>{attachment.name}</p>
-              {idToDelete === attachment.id ? (
-                <Loader2 className='ml-auto h-4 w-4 animate-spin' />
-              ) : (
-                <button
-                  className='ml-auto transition hover:opacity-75'
-                  onClick={() => onDelete(attachment.id)}>
-                  <X className='h-4 w-4' />
-                </button>
-              )}
+          {initialData.attachments.length !== 0 && (
+            <div className='space-y-2'>
+              {initialData.attachments.map((attachment) => (
+                <div
+                  key={attachment.id}
+                  className='flex w-full items-center rounded-md border border-sky-200 bg-sky-100 p-3 text-sky-700'>
+                  <File className='mr-2 h-4 w-4 flex-shrink-0' />
+                  <p className='mr-2 line-clamp-1 text-xs'>{attachment.name}</p>
+                  {idToDelete === attachment.id ? (
+                    <Loader2 className='ml-auto h-4 w-4 animate-spin' />
+                  ) : (
+                    <button
+                      className='ml-auto transition hover:opacity-75'
+                      onClick={() => onDelete(attachment.id)}>
+                      <X className='h-4 w-4' />
+                    </button>
+                  )}
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          )}
+        </>
       )}
     </div>
   );
