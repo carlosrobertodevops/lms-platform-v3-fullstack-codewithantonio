@@ -22,9 +22,10 @@ model Course {
   updatedAt   DateTime @updatedAt
 
   attachments Attachment[]
+  chapters    Chapter[]
 
   categoryId String?
-  Category   Category? @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  category   Category? @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 }
 
 model Attachment {
@@ -43,4 +44,19 @@ model Category {
   name String @unique
 
   courses Course[]
+}
+
+model Chapter {
+  id          String   @id @default(uuid())
+  title       String
+  description String?  @db.Text
+  videoUrl    String?  @db.Text
+  position    Int
+  isPublished Boolean  @default(false)
+  isFree      Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 }
