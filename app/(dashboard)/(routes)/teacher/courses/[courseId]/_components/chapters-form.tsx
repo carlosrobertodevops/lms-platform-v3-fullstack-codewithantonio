@@ -18,6 +18,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { z } from 'zod';
+import ChaptersList from './chapters-list';
 
 interface ChaptersFormProps {
   initialData: { chapters: Chapter[] };
@@ -32,6 +33,8 @@ type ChaptersFormSchemaType = z.infer<typeof chaptersFormSchema>;
 
 const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
   const [isCreating, setIsCreating] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
+
   const router = useRouter();
 
   const form = useForm<ChaptersFormSchemaType>({
@@ -56,6 +59,16 @@ const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
     } catch {
       toast.error('Something went wrong');
     }
+  };
+
+  const handleOnReorder = (
+    updatedOrder: { id: string; position: number }[],
+  ) => {
+    console.log({ updatedOrder });
+  };
+
+  const handleOnEdit = (id: string) => {
+    console.log({ id });
   };
 
   return (
@@ -109,7 +122,17 @@ const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
           {initialData.chapters.length === 0 && (
             <p className='mt-2 text-sm italic text-slate-500'>No chapters</p>
           )}
-          {initialData.chapters.length !== 0 && <>Future Chapters List</>}
+          {initialData.chapters.length !== 0 && (
+            <ChaptersList
+              items={initialData.chapters}
+              isUpdating={isUpdating}
+              onEdit={handleOnEdit}
+              onReorder={handleOnReorder}
+            />
+          )}
+          <p className='mt-4 text-center text-xs text-muted-foreground'>
+            Drag and drop to reorder the chapters
+          </p>
         </>
       )}
     </div>
