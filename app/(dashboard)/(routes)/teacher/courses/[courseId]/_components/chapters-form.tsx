@@ -11,6 +11,7 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Chapter } from '@prisma/client';
 import axios from 'axios';
 import { PencilIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -19,8 +20,8 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { z } from 'zod';
 
-interface DescriptionFormProps {
-  initialData: { description: string | null };
+interface ChaptersFormProps {
+  initialData: { chapters: Chapter[] };
   courseId: string;
 }
 
@@ -30,7 +31,7 @@ const descriptionFormSchema = z.object({
 
 type DescriptionFormSchemaType = z.infer<typeof descriptionFormSchema>;
 
-const ChaptersForm = ({ initialData, courseId }: DescriptionFormProps) => {
+const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
 
