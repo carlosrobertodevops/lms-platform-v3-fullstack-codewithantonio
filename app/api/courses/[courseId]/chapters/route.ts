@@ -22,6 +22,17 @@ export async function POST(request: NextRequest, { params }: ContextProps) {
     if (!courseOwner) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
+
+    const lastChapter = await db.chapter.findFirst({
+      where: {
+        courseId: params.courseId,
+      },
+      orderBy: {
+        position: 'desc',
+      },
+    });
+
+    const newPosition = lastChapter ? ++lastChapter.position : 1;
   } catch (error) {
     console.log('[CHAPTERS]', error);
     return new NextResponse('Internal Error', { status: 500 });
