@@ -17,10 +17,15 @@ const ChaptersList = ({
   onReorder,
 }: ChaptersListProps) => {
   const [isClient, setIsClient] = useState(false);
+  const [chapters, setChapters] = useState(items);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  useEffect(() => {
+    setChapters(items);
+  }, [items]);
 
   if (!isClient) {
     return null;
