@@ -50,6 +50,7 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
     course.imageUrl,
     course.price !== null,
     course.categoryId,
+    course.chapters.some((chapter) => chapter.isPublished === true),
   ];
 
   const totalFields = requiredFields.length;
