@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function POST(request: NextRequest) {
+interface ContextProps {
+  params: { courseId: 'string' };
+}
+
+export async function POST(request: NextRequest, { params }: ContextProps) {
   try {
   } catch (error) {
     console.log('[CHAPTERS]', error);
