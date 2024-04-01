@@ -33,6 +33,14 @@ export async function POST(request: NextRequest, { params }: ContextProps) {
     });
 
     const newPosition = lastChapter ? ++lastChapter.position : 1;
+
+    const chapter = await db.chapter.create({
+      data: {
+        title: chapterTitle,
+        position: newPosition,
+        courseId: params.courseId,
+      },
+    });
   } catch (error) {
     console.log('[CHAPTERS]', error);
     return new NextResponse('Internal Error', { status: 500 });
