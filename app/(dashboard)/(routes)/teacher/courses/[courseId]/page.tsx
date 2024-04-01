@@ -14,6 +14,7 @@ import ImageForm from './_components/image-form';
 import CategoryForm from './_components/category-form';
 import PriceForm from './_components/price-form';
 import AttachmentForm from './_components/attachment-form';
+import ChaptersForm from './_components/chapters-form';
 
 interface CourseIdPageProps {
   params: {
@@ -87,6 +88,7 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
               <IconBadge icon={ListChecks} />
               <h2 className='text-xl'>Course Chapters</h2>
             </div>
+            <ChaptersForm initialData={course} courseId={course.id} />
           </div>
           {/* Section `Course Chapters` ends */}
           {/* Section `Sell your course` starts */}
