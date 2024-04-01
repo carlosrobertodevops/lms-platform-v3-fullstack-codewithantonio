@@ -28,8 +28,12 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
 
   const course = await db.course.findUnique({
     where: { id: courseId },
-    include: { attachments: { orderBy: { createdAt: 'desc' } } },
+    include: {
+      attachments: { orderBy: { createdAt: 'desc' } },
+      chapters: { orderBy: { position: 'asc' } },
+    },
   });
+
   const categories = await db.category.findMany({
     orderBy: {
       name: 'asc',
