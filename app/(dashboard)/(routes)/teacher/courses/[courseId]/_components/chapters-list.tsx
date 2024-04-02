@@ -2,6 +2,11 @@
 
 import { Chapter } from '@prisma/client';
 import { useEffect, useState } from 'react';
+import { DndContext, DragEndEvent, closestCenter } from '@dnd-kit/core';
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
 
 interface ChaptersListProps {
   items: Chapter[];
@@ -31,7 +36,18 @@ const ChaptersList = ({
     return null;
   }
 
-  return <div>This is a ChaptersList</div>;
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    console.log({ active, over });
+  };
+
+  return (
+    <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+      <SortableContext
+        items={chapters}
+        strategy={verticalListSortingStrategy}></SortableContext>
+    </DndContext>
+  );
 };
 
 export default ChaptersList;
