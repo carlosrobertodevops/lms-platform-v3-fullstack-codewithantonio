@@ -1,10 +1,11 @@
 'use client';
 
+import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Chapter } from '@prisma/client';
-import { Grip } from 'lucide-react';
+import { Grip, Pencil } from 'lucide-react';
 
 interface SortableItemProps {
   chapter: Chapter;
@@ -36,6 +37,15 @@ const SortableItem = ({ chapter, isUpdating, onEdit }: SortableItemProps) => {
           <Grip className='h-5 w-5' />
         </div>
         {title}
+        <div className='ml-auto flex items-center gap-x-2 pr-2'>
+          {isFree && <Badge>Free</Badge>}
+          {isPublished && <Badge className='bg-sky-700'>Published</Badge>}
+          {!isPublished && <Badge className='bg-slate-500'>Draft</Badge>}
+          <Pencil
+            className='h-4 w-4 cursor-pointer transition hover:opacity-75'
+            onClick={() => onEdit(id)}
+          />
+        </div>
       </div>
     </div>
   );
