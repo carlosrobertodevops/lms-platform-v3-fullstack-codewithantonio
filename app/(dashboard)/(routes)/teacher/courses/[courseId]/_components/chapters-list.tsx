@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { DndContext, DragEndEvent, closestCenter } from '@dnd-kit/core';
 import {
   SortableContext,
+  arrayMove,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import SortableItem from './sortable-item';
@@ -39,7 +40,21 @@ const ChaptersList = ({
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
-    console.log({ active, over });
+
+    if (over && active.id !== over.id) {
+      setChapters((prevChapters) => {
+        const oldIndex = prevChapters.findIndex(
+          (chapter) => chapter.id === active.id,
+        );
+
+        const newIndex = prevChapters.findIndex(
+          (chapter) => chapter.id === over.id,
+        );
+
+        const updatedChapters = arrayMove(prevChapters, oldIndex, newIndex);
+        return updatedChapters;
+      });
+    }
   };
 
   return (
