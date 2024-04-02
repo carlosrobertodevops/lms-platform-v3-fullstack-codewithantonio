@@ -61,10 +61,21 @@ const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
     }
   };
 
-  const handleOnReorder = (
+  const handleOnReorder = async (
     updatedOrder: { id: string; position: number }[],
   ) => {
-    console.log({ updatedOrder });
+    try {
+      setIsUpdating(true);
+      await axios.patch(`/api/courses/${courseId}/chapters/reorder`, {
+        list: updatedOrder,
+      });
+      toast.success('Order is changed');
+      router.refresh();
+    } catch {
+      toast.error('Something went wrong');
+    } finally {
+      setIsUpdating(false);
+    }
   };
 
   const handleOnEdit = (id: string) => {
