@@ -1,5 +1,5 @@
 {
-  "name": "lms-platform-v1",
+  "name": "lms-platform-v3",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -15,7 +15,7 @@
     "@dnd-kit/sortable": "^8.0.0",
     "@dnd-kit/utilities": "^3.2.2",
     "@hookform/resolvers": "^3.3.3",
-    "@prisma/client": "^5.8.0",
+    "@prisma/client": "^5.12.0",
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-popover": "^1.0.7",
@@ -46,7 +46,7 @@
     "postcss": "^8",
     "prettier": "^3.1.1",
     "prettier-plugin-tailwindcss": "^0.5.9",
-    "prisma": "^5.8.0",
+    "prisma": "^5.12.0",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
   }
