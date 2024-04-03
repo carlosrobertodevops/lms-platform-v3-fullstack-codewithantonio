@@ -12,7 +12,7 @@ import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Chapter } from '@prisma/client';
 import axios from 'axios';
-import { PlusCircle } from 'lucide-react';
+import { Loader2, PlusCircle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -83,7 +83,12 @@ const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
   };
 
   return (
-    <div className='mt-6 rounded-md border bg-slate-100 p-4'>
+    <div className='relative mt-6 rounded-md border bg-slate-100 p-4'>
+      {isUpdating && (
+        <div className='absolute inset-0 flex items-center justify-center rounded-md bg-slate-500/20'>
+          <Loader2 className='h-6 w-6 animate-spin text-sky-700' />
+        </div>
+      )}
       <div className='flex items-center justify-between font-medium'>
         Course Chapters
         <Button variant={'ghost'} onClick={toggleIsCreating}>
