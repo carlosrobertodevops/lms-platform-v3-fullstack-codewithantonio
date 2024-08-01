@@ -1,0 +1,5 @@
+.trunk
+docker*.yml
+Dockerfile*
+/terraform
+makefile

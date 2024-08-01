@@ -1,0 +1,56 @@
+services:
+  app:
+    build: .
+    container_name: app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    env_file: .env.development
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-"postgresql://lms:lmsd@localhost:5432/lms"}
+    volumes:
+      - .:/app
+      - /app/node_modules
+    networks:
+      - lms
+    restart: unless-stopped
+
+  db:
+    container_name: db-pgsql
+    image: postgres
+    env_file: .env.development
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-lms}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-lms}
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - lms
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    env_file: .env.development
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    networks:
+      - lms
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
+  pgadmin:
+
+networks:
+  lms:

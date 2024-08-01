@@ -2,6 +2,29 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+```bash
+app-lsm/
+│
+├── public/
+│   └── ...  # Arquivos públicos
+│
+├── src/
+│   └── ...  # Código-fonte do seu app Next.js
+│
+├── app/
+│   └── ...  # Diretório `app` do Next.js 14
+│
+├── pages/
+│   └── ...  # Diretório `pages` do Next.js
+│
+├── package.json
+│
+├── next.config.js
+│
+└── Dockerfile
+
+```
+
 First, run the development server:
 
 ```bash
