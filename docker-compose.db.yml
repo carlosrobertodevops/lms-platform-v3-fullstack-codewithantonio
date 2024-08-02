@@ -1,15 +1,16 @@
 services:
 
   db:
-    container_name: db-pgsql
+    container_name: postgres
     image: postgres
-    env_file: .env.development
+    env_file: .env.dev
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-lms}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-lms}
+      POSTGRES_DB: ${POSTGRES_DB:-lm}
       PGDATA: /data/postgres
     volumes:
-      - postgres:/data/postgres
+      - db:/data/postgres
     ports:
       - "5432:5432"
     networks:
@@ -19,7 +20,9 @@ services:
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4
-    env_file: .env.development
+    env_file: .env.dev
+    depends_on:
+      - db
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
@@ -33,7 +36,7 @@ services:
     restart: unless-stopped
 
 volumes:
-  mysql_data:
+  db:
   pgadmin:
 
 networks:
