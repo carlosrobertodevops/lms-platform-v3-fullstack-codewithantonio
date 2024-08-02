@@ -23,6 +23,7 @@ services:
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-lms}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-lms}
+      POSTGRES_DB: ${POSTGRES_DB:-lms}
       PGDATA: /data/postgres
     volumes:
       - db:/data/postgres
