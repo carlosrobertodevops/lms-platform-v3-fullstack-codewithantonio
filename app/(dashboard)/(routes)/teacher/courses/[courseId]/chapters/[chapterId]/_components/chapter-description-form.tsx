@@ -1,5 +1,6 @@
 'use client';
 
+import { Editor } from '@/components/editor';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -8,8 +9,10 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Chapter } from '@prisma/client';
 import axios from 'axios';
 import { PencilIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -17,47 +20,45 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { z } from 'zod';
-import { Chapter } from "@prisma/client";
 
 interface ChapterDescriptionFormProps {
-  initialData: {
-    Chapter: string;
-  };
+  initialData: Chapter;
   courseId: string;
   chapterId: string;
 }
 
-const titleFormSchema = z.object({
-  title: z.string().trim().min(1, 'Title is required'),
+const formSchema = z.object({
+  description: z.string().min(1),
 });
 
-type TitleFormSchemaType = z.infer<typeof titleFormSchema>;
+type ChapterDescriptionFormSchemaType = z.infer<typeof formSchema>;
 
-const ChapterTitleForm = ({
+const ChapterDescriptionForm = ({
   initialData,
   courseId,
-  chapterId,
-}: ChapterTitleFormProps) => {
+  chapterId
+}: ChapterDescriptionFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
+
+  const toggleEdit = () => setIsEditing((current)=> !current);
+
   const router = useRouter();
 
-  const form = useForm<TitleFormSchemaType>({
-    mode: 'onChange',
-    defaultValues: { title: initialData?.title || '' },
-    resolver: zodResolver(titleFormSchema),
+  const form = useForm<ChapterDescriptionFormSchemaType>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      description: initialData?.description || '',
+    },
   });
 
   const { isValid, isSubmitting } = form.formState;
 
-  const toggleIsEditing = () => setIsEditing((current) => !current);
+  const toggleIsEditing = () => setIsEditing((prevState) => !prevState);
 
-  const onSubmit = async (values: TitleFormSchemaType) => {
+  const onSubmit = async (values: ChapterDescriptionFormSchemaType) => {
     try {
-      await axios.patch(
-        `/api/courses/${courseId}/chapters/${chapterId}`,
-        values,
-      );
-      toast.success('Chapter is updated');
+      await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}`, values);
+      toast.success('Chapter updated');
       toggleIsEditing();
       router.refresh();
     } catch {
@@ -68,10 +69,10 @@ const ChapterTitleForm = ({
   return (
     <div className='mt-6 rounded-md border bg-slate-100 p-4'>
       <div className='flex items-center justify-between font-medium'>
-        Chapter title
+        Chapter description
         <Button variant={'ghost'} onClick={toggleIsEditing}>
           {isEditing ? (
-            'Cancel'
+            <>Cancel</>
           ) : (
             <>
               <PencilIcon className='mr-2 h-4 w-4' />
@@ -80,21 +81,28 @@ const ChapterTitleForm = ({
           )}
         </Button>
       </div>
-      {!isEditing && <p className='mt-2 text-sm'>{initialData.title}</p>}
+      {!isEditing && (
+        <p
+          className={cn(
+            'mt-2 text-sm',
+            !initialData.description && 'italic text-slate-500',
+          )}>
+          {initialData.description ?? 'No Chapter Description'}
+        </p>
+      )}
+
       {isEditing && (
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className='mt-4 space-y-4'>
+            className='mt-4 space-y-4'
+            onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
-              name='title'
+              name='description'
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input
-                      disabled={isSubmitting}
-                      placeholder='e.g. "Introduction to the course"'
+                    <Editor
                       {...field}
                     />
                   </FormControl>
@@ -103,7 +111,7 @@ const ChapterTitleForm = ({
               )}
             />
             <div className='flex items-center gap-x-2'>
-              <Button disabled={!isValid || isSubmitting} type='submit'>
+              <Button type='submit' disabled={isSubmitting || !isValid}>
                 Save
               </Button>
             </div>
@@ -114,4 +122,4 @@ const ChapterTitleForm = ({
   );
 };
 
-export default ChapterTitleForm;
+export default ChapterDescriptionForm;
