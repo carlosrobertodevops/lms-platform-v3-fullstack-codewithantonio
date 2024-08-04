@@ -73,14 +73,14 @@ const ChapterAccessForm = ({
   return (
     <div className='mt-6 rounded-md border bg-slate-100 p-4'>
       <div className='flex items-center justify-between font-medium'>
-        Chapter access settings
+        Chapter access
         <Button variant={'ghost'} onClick={toggleIsEditing}>
           {isEditing ? (
             <>Cancel</>
           ) : (
             <>
               <PencilIcon className='mr-2 h-4 w-4' />
-              Edit
+              Edit access
             </>
           )}
         </Button>
@@ -91,12 +91,11 @@ const ChapterAccessForm = ({
             'mt-2 text-sm',
             !initialData.isFree && 'italic text-slate-500',
           )}>
-            {!initialData.isFree && 'No Chapter is Free'}
-            {initialData.isFree && (
-              <Preview
-                value={initialData.isFree}
-              />
-            )}
+          {initialData.isFree ? (
+              <>This chapter is free for preview.</>
+          ) : (
+              <> This chapter is not free</>
+          )}
         </div>
       )}
 
