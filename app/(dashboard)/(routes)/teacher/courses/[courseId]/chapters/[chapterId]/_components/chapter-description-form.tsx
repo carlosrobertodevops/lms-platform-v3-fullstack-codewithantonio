@@ -1,6 +1,7 @@
 'use client';
 
 import { Editor } from '@/components/editor';
+import { Preview } from '@/components/preview';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -9,7 +10,6 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form';
-import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Chapter } from '@prisma/client';
@@ -82,13 +82,18 @@ const ChapterDescriptionForm = ({
         </Button>
       </div>
       {!isEditing && (
-        <p
+        <div
           className={cn(
             'mt-2 text-sm',
             !initialData.description && 'italic text-slate-500',
           )}>
-          {initialData.description ?? 'No Chapter Description'}
-        </p>
+            {!initialData.description && 'No Chapter Description'}
+            {initialData.description && (
+              <Preview
+                value={initialData.description}
+              />
+            )}
+        </div>
       )}
 
       {isEditing && (
