@@ -4,22 +4,21 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
-import { ImageIcon, PencilIcon, PlusCircle, Video } from 'lucide-react';
+import { PencilIcon, PlusCircle, VideoIcon } from 'lucide-react';
 
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import Image from 'next/image';
 import FileUpload from '@/components/file-upload';
 import { Chapter, MuxData } from '@prisma/client';
-import { undefined, z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 
-interface CapterVideoProps {
+interface CapterVideoFormProps {
   initialData: Chapter & { muxData?: MuxData | null };
   courseId: string;
   chapterId: string;
-}
+};
 
 const formSchema = z.object({
   videoUrl: z.string().min(1),
@@ -27,11 +26,11 @@ const formSchema = z.object({
 
 type CapterVideoFormSchemaType = z.infer<typeof formSchema>;
 
-const CapterVideo = ({
+export const CapterVideoForm = ({
   initialData,
   courseId,
   chapterId
-}: CapterVideoProps) => {
+}: CapterVideoFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const router = useRouter();
@@ -45,7 +44,7 @@ const CapterVideo = ({
 
   const { isValid, isSubmitting } = form.formState;
 
-  const toggleIsEditing = () => setIsEditing((prevState) => !prevState);
+  const toggleIsEditing = () => setIsEditing((current) => !current);
 
   const onSubmit = async (values: { videoUrl: string }) => {
     try {
@@ -56,12 +55,12 @@ const CapterVideo = ({
     } catch {
       toast.error('Something went wrong');
     }
-  };
+  }
 
   return (
     <div className='mt-6 rounded-md border bg-slate-100 p-4'>
       <div className='flex items-center justify-between font-medium'>
-        Course Image
+        Chapter Video
         <Button variant={'ghost'} onClick={toggleIsEditing}>
           {isEditing && (
             <>Cancel</>
@@ -81,20 +80,22 @@ const CapterVideo = ({
         </Button>
       </div>
 
-      {!isEditing && !initialData.videoUrl ? (
-        <div className='flex h-60 items-center justify-center rounded-md bg-slate-200'>
-          <ImageIcon className='h-10 w-10 text-slate-500' />
-        </div>
-      ) : (
-        <div className='relative mt-2 aspect-video '>
-          Video uploaded!
-        </div>
+      {!isEditing && (
+        initialData.videoUrl ? (
+          <div className='flex h-60 items-center justify-center rounded-md bg-slate-200'>
+            <VideoIcon className='h-10 w-10 text-slate-500' />
+          </div>
+        ) : (
+          <div className='relative mt-2 aspect-video '>
+            Video uploaded!
+          </div>
+        )
       )}
 
       {isEditing && (
         <div>
           <FileUpload
-            endpoint='courseImage'
+            endpoint='chapterVideo'
             onChange={(url) => {
               if (url) {
                 onSubmit({ videoUrl: url });
@@ -106,8 +107,13 @@ const CapterVideo = ({
           </div>
         </div>
       )}
+      {initialData.videoUrl && !isEditing && (
+        <div className='text-xs text-muted-foreground mt-2'>
+          Videos can take a few minutes to process. Refresh the page if video does not appear.
+        </div>
+      )}
     </div>
   );
 };
 
-export default CapterVideo;
+export default CapterVideoForm;

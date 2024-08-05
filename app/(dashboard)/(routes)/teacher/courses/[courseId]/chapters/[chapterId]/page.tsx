@@ -7,6 +7,7 @@ import { redirect } from 'next/navigation';
 import ChapterTitleForm from './_components/chapter-title-form';
 import ChapterDescriptionForm from './_components/chapter-description-form';
 import ChapterAccessForm from './_components/chapter-access-form';
+import ChapterVideoForm from './_components/chapter-video-form';
 
 interface ChapterIdPageProps {
   params: {
@@ -91,7 +92,7 @@ const ChapterIdPage = async ({ params }: ChapterIdPageProps) => {
               />
             </div>
           </div>
-          {/* Column II `Vídeos` ends */}
+          {/* Column II `Videos` ends */}
           <div>
             <div className='flex items-center gap-x-2'>
               <IconBadge icon={Video} />
@@ -99,6 +100,11 @@ const ChapterIdPage = async ({ params }: ChapterIdPageProps) => {
                   Add a video
                 </h2>
             </div>
+            <ChapterVideoForm
+              initialData={chapter}
+              courseId={params.courseId}
+              chapterId={params.chapterId}
+            />
           </div>
         </div>
       </div>

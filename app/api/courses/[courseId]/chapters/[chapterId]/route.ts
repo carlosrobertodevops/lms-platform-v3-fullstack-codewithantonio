@@ -1,6 +1,12 @@
 import { db } from '@/lib/db';
 import { auth } from '@clerk/nextjs/server';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
+import  Mux  from "@mux/mux-node";
+
+const { Video }  = new Mux(
+  process.env.MUX_TOKEN_ID!,
+  process.env.MUX_TOKEN_SECRET!,
+);
 
 interface ContextProps {
   params: {
@@ -9,10 +15,10 @@ interface ContextProps {
   };
 }
 
-export async function PATCH(request: NextRequest, { params }: ContextProps) {
+export async function PATCH(request: Request, { params }: ContextProps) {
   try {
     const { userId } = auth();
-    const values = await request.json();
+    const { isPublished, ...values } = await request.json();
 
     if (!userId) {
       return new NextResponse('Unauthorized', { status: 401 });
@@ -33,6 +39,37 @@ export async function PATCH(request: NextRequest, { params }: ContextProps) {
       },
       data: { ...values },
     });
+
+    if (values.videoUrl) {
+      const existingMuxData = await db.muxData.findFirst({
+        where: {
+          chapterId: params.chapterId,
+        }
+      });
+
+      if (existingMuxData) {
+        await Video.Asserts.del(existingMuxData.assetId);
+        await db.muxData.delete({
+          where: {
+            id: existingMuxData.id
+          }
+        });
+      }
+
+      const asset = await Video.Assets.create({
+        input: values.videoUrl,
+        playback_policy: "public",
+        test: false,
+      });
+
+      await db.muxData.create({
+        data: {
+          chapterId: params.chapterId,
+          assetId: asset.id,
+          playbackId: asset.playback_ids?.[0].id,
+        }
+      });
+    }
 
     return NextResponse.json(chapter);
   } catch (error) {
