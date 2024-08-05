@@ -24,7 +24,10 @@ export async function DELETE(request: Request, { params }: ContextProps) {
     }
 
     const courseOwner = await db.course.findUnique({
-      where: { id: params.courseId, userId },
+      where: {
+        id: params.courseId,
+        userId
+      },
     });
 
     if (!courseOwner) {
@@ -32,7 +35,10 @@ export async function DELETE(request: Request, { params }: ContextProps) {
     };
 
     const chapter = await db.chapter.findUnique({
-      where: { id: params.chapterId, courseId: params.courseId },
+      where: {
+        id: params.chapterId,
+        courseId: params.courseId
+      },
     });
 
     if (!chapter) {
@@ -98,7 +104,10 @@ export async function PATCH(request: Request, { params }: ContextProps) {
     }
 
     const courseOwner = await db.course.findUnique({
-      where: { id: params.courseId, userId },
+      where: {
+        id: params.courseId,
+        userId
+      },
     });
 
     if (!courseOwner) {
@@ -133,7 +142,8 @@ export async function PATCH(request: Request, { params }: ContextProps) {
 
       const asset = await mux.video.assets.create({
         input: values.videoUrl,
-        playback_policy: "public",
+        playback_policy: ['public'],
+        encoding_tier: 'baseline',
         test: false,
       });
 
@@ -147,6 +157,7 @@ export async function PATCH(request: Request, { params }: ContextProps) {
     }
 
     return NextResponse.json(chapter);
+
   } catch (error) {
     console.log('[COURSES_CHAPTER_ID]', error);
     return new NextResponse('Internal Error', { status: 500 });
