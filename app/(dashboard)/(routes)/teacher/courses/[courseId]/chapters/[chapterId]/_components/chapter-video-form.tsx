@@ -81,7 +81,7 @@ export const CapterVideoForm = ({
       </div>
 
       {!isEditing && (
-        initialData.videoUrl ? (
+        !initialData.videoUrl ? (
           <div className='flex h-60 items-center justify-center rounded-md bg-slate-200'>
             <VideoIcon className='h-10 w-10 text-slate-500' />
           </div>
