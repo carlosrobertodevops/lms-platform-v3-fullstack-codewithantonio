@@ -75,7 +75,7 @@ const ChapterIdPage = async ({ params }: ChapterIdPageProps) => {
             </div>
             <ChapterActions
               disabled={ !isComplete }
-              courseld={ params.courseId }
+              courseId={ params.courseId }
               chapterId={ params.chapterId }
               isPublished={ chapter.isPublished }
             />

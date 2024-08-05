@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-
 import { Button } from '@/components/ui/button';
 import { PencilIcon, PlusCircle, VideoIcon } from 'lucide-react';
 import MuxPlayer from '@mux/mux-player-react';
