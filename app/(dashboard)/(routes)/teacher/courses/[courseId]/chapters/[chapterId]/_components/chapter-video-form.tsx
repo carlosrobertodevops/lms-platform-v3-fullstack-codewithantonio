@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import { PencilIcon, PlusCircle, VideoIcon } from 'lucide-react';
-
+import MuxPlayer from '@mux/mux-player-react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import FileUpload from '@/components/file-upload';
@@ -87,7 +87,9 @@ export const CapterVideoForm = ({
           </div>
         ) : (
           <div className='relative mt-2 aspect-video '>
-            Video uploaded!
+            <MuxPlayer
+              playbackId={initialData?.muxData?.playbackId || ''}
+            />
           </div>
         )
       )}
