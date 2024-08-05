@@ -3,7 +3,7 @@ services:
   db:
     container_name: postgres
     image: postgres
-    env_file: .env.dev
+    env_file: .env.local
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-lms}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-lms}
@@ -20,7 +20,7 @@ services:
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4
-    env_file: .env.dev
+    env_file: .env.local
     depends_on:
       - db
     environment:
