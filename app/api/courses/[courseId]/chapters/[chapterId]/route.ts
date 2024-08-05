@@ -1,9 +1,9 @@
 import { db } from '@/lib/db';
 import { auth } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
-import  Mux  from "@mux/mux-node";
+import Mux from "@mux/mux-node";
 
-const { Video }  = new Mux(
+const { Video } = new Mux(
   process.env.MUX_TOKEN_ID!,
   process.env.MUX_TOKEN_SECRET!,
 );
@@ -37,7 +37,9 @@ export async function PATCH(request: Request, { params }: ContextProps) {
         id: params.chapterId,
         courseId: params.courseId,
       },
-      data: { ...values },
+      data: {
+        ...values,
+      },
     });
 
     if (values.videoUrl) {
@@ -66,14 +68,14 @@ export async function PATCH(request: Request, { params }: ContextProps) {
         data: {
           chapterId: params.chapterId,
           assetId: asset.id,
-          playbackId: asset.playback_ids?.[0].id,
+          playbackId: asset.playback_ids?.[0]?.id,
         }
       });
     }
 
     return NextResponse.json(chapter);
   } catch (error) {
-    console.log('[CHAPTER_ID]', error);
+    console.log('[COURSES_CHAPTER_ID]', error);
     return new NextResponse('Internal Error', { status: 500 });
   }
 }
