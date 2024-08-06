@@ -37,7 +37,11 @@ const ChapterIdPage = async ({ params }: ChapterIdPageProps) => {
     return redirect('/');
   }
 
-  const requiredFields = [chapter.title, chapter.description, chapter.videoUrl];
+  const requiredFields = [
+    chapter.title,
+    chapter.description,
+    chapter.videoUrl,
+  ];
 
   const totalFields = requiredFields.length;
   const completedFields = requiredFields.filter((field) =>
@@ -61,7 +65,7 @@ const ChapterIdPage = async ({ params }: ChapterIdPageProps) => {
           <Link
             className='mb-6 flex items-center gap-2 text-sm transition hover:opacity-75'
             href={`/teacher/courses/${params.courseId}`}>
-            <ArrowLeft className='h-4 w-4 flex-shrink-0' />
+            <ArrowLeft className='h-4 w-4 mr-2' />
             Back to course setup
           </Link>
           <div className='flex items-center justify-between w-full'>
