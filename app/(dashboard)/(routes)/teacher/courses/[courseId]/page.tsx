@@ -8,13 +8,13 @@ import {
   ListChecks,
 } from 'lucide-react';
 import { redirect } from 'next/navigation';
-import TitleForm from './_components/title-form';
+import AttachmentForm from './_components/attachment-form';
+import CategoryForm from './_components/category-form';
+import ChaptersForm from './_components/chapters-form';
 import DescriptionForm from './_components/description-form';
 import ImageForm from './_components/image-form';
-import CategoryForm from './_components/category-form';
 import PriceForm from './_components/price-form';
-import AttachmentForm from './_components/attachment-form';
-import ChaptersForm from './_components/chapters-form';
+import TitleForm from './_components/title-form';
 
 interface CourseIdPageProps {
   params: {
@@ -54,10 +54,13 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
   ];
 
   const totalFields = requiredFields.length;
+
   const completedFields = requiredFields.filter((field) =>
     Boolean(field),
   ).length;
   const completionText = `${completedFields}/${totalFields}`;
+
+  const isComplete = requiredFields.every(Boolean);
 
   return (
     <div className='p-6'>
