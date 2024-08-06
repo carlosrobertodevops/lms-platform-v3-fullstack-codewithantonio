@@ -29,10 +29,10 @@ export const Actions = ({
 
       if (isPublished) {
         await axios.patch(`/api/courses/${courseId}/unpublish`);
-        toast.success ("Chapter unpublished");
+        toast.success ("Course unpublished");
       } else {
         await axios.patch(`/api/courses/${courseId}/publish`);
-        toast.success("Chapter published");
+        toast.success("Course published");
       }
 
       router.refresh();
@@ -46,10 +46,12 @@ export const Actions = ({
   const onDelete = async () => {
     try {
       setIsLoading(true);
-      await axios.delete(`/api/courses/${courseId}/chapters/${chapterId}`);
-      toast.success("Chapter deleted");
+
+      await axios.delete(`/api/courses/${courseId}`);
+
+      toast.success("Course deleted");
       router.refresh();
-      router.push(`/teacher/courses/${courseId}`);
+      router.push(`/teacher/courses`);
     } catch {
       toast.error('Something went wrong')
     } finally {
