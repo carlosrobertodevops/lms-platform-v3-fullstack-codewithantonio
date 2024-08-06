@@ -4,8 +4,7 @@ import { NextResponse } from 'next/server';
 
 interface ContextProps {
   params: {
-    courseId: string;
-    chapterId: string;
+    Id: string;
   };
 }
 
@@ -19,7 +18,7 @@ export async function PATCH(request: Request, { params }: ContextProps) {
 
     const courseOwner = await db.course.findUnique({
       where: {
-        id: params.courseId,
+        id: params.Id,
         userId
       },
     });
@@ -28,10 +27,9 @@ export async function PATCH(request: Request, { params }: ContextProps) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
 
-    const unpubishedChapter = await db.chapter.update({
+    const unpubishedChapter = await db.course.update({
       where: {
-        id: params.chapterId,
-        courseId: params.courseId,
+        id: params.Id
       },
       data: {
         isPublished: false,

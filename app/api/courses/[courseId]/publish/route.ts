@@ -16,14 +16,14 @@ export async function PATCH(request: Request, { params }: ContextProps) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
 
-    const courseOwner = await db.course.findUnique({
+    const course = await db.course.findUnique({
       where: {
         id: params.courseId,
         userId
       },
     });
 
-    if (!courseOwner) {
+    if (!course) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
 
@@ -33,24 +33,23 @@ export async function PATCH(request: Request, { params }: ContextProps) {
       }
     });
 
-    if (!courseOwner || !muxData || !chapter.title || !chapter.description || !chapter.videoUrl) {
+    if (!course || !muxData || !course.title || !course.description || !course.imageUrl || !course.price) {
       return new NextResponse('Missing required fields', { status: 400 });
     };
 
-    const pubishedChapter = await db.chapter.update({
+    const pubishedCourse = await db.course.update({
       where: {
-        id: params.chapterId,
-        courseId: params.courseId,
+        id:params.courseId,
       },
       data: {
         isPublished: true,
       }
     });
 
-    return NextResponse.json(pubishedChapter);
+    return NextResponse.json(pubishedCourse);
 
   } catch (error) {
-    console.log('[CHAPTER_PUBLISH]', error);
+    console.log('[COURSE_PUBLISH]', error);
     return new NextResponse('Internal Error', { status: 500 });
   }
 }

@@ -38,13 +38,13 @@ export async function PATCH(request: Request, { params }: ContextProps) {
       }
     });
 
-    const publishedChaptersInCourse = await db. chapter.findMany ({
+    const unpublishedChaptersInCourse = await db. chapter.findMany ({
       where: {
         courseId: params. courseId, isPublished: true,
         }
     });
 
-    if (!publishedChaptersInCourse.length) {
+    if (!unpublishedChaptersInCourse.length) {
       await db.course.update({
         where: {
           id: params. courseId,

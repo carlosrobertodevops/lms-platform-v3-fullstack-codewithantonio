@@ -3,6 +3,11 @@ import { auth } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
 import Mux from "@mux/mux-node";
 
+const mux = new Mux({
+  tokenId: process.env.MUX_TOKEN_ID!,
+  tokenSecret: process.env.MUX_TOKEN_SECRET!,
+});
+
 interface ContextProps {
   params: {
     courseId: string;
