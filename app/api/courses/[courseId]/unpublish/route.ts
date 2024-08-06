@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 
 interface ContextProps {
   params: {
-    Id: string;
+    courseId: string;
   };
 }
 
@@ -16,47 +16,31 @@ export async function PATCH(request: Request, { params }: ContextProps) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
 
-    const courseOwner = await db.course.findUnique({
+    const course = await db.course.findUnique({
       where: {
-        id: params.Id,
+        id: params.courseId,
         userId
       },
     });
 
-    if (!courseOwner) {
-      return new NextResponse('Unauthorized', { status: 401 });
+    if (!course) {
+      return new NextResponse('Not found', { status: 404 });
     }
 
-    const unpubishedChapter = await db.course.update({
+    const unpubishedCourse = await db.course.update({
       where: {
-        id: params.Id
+        id: params.courseId,
+        userId,
       },
       data: {
         isPublished: false,
       }
     });
 
-    const publishedChaptersInCourse = await db. chapter.findMany ({
-      where: {
-        courseId: params. courseId, isPublished: true,
-        }
-    });
-
-    if (!publishedChaptersInCourse.length) {
-      await db.course.update({
-        where: {
-          id: params. courseId,
-        },
-        data: {
-          isPublished: false,
-        }
-      });
-    }
-
-    return NextResponse.json(unpubishedChapter);
+    return NextResponse.json(unpubishedCourse);
 
   } catch (error) {
-    console.log('[CHAPTER_UNPUBLISH]', error);
+    console.log('[COURSE_ID_UNPUBLISH]', error);
     return new NextResponse('Internal Error', { status: 500 });
   }
 }

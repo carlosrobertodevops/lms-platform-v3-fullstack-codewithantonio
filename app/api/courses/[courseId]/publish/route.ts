@@ -21,25 +21,29 @@ export async function PATCH(request: Request, { params }: ContextProps) {
         id: params.courseId,
         userId
       },
-    });
-
-    if (!course) {
-      return new NextResponse('Unauthorized', { status: 401 });
-    }
-
-    const muxData = await db.muxData.findUnique({
-      where: {
-        courseId: params.courseId
+      include: {
+        chapters: {
+          include: {
+            muxData: true,
+          }
+        }
       }
     });
 
-    if (!course || !muxData || !course.title || !course.description || !course.imageUrl || !course.price) {
+    if (!course) {
+      return new NextResponse('Not found', { status: 404 });
+    }
+
+    const hasPublishedChapter = course.chapters.some((chapter) => chapter.isPublished);
+
+    if (!course.title || !course.description || !course.imageUrl || !course.categoryId|| !hasPublishedChapter) {
       return new NextResponse('Missing required fields', { status: 400 });
     };
 
     const pubishedCourse = await db.course.update({
       where: {
-        id:params.courseId,
+        id: params.courseId,
+        userId,
       },
       data: {
         isPublished: true,
@@ -49,7 +53,7 @@ export async function PATCH(request: Request, { params }: ContextProps) {
     return NextResponse.json(pubishedCourse);
 
   } catch (error) {
-    console.log('[COURSE_PUBLISH]', error);
+    console.log('[COURSE_ID_PUBLISH]', error);
     return new NextResponse('Internal Error', { status: 500 });
   }
 }
