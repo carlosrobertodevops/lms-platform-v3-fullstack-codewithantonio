@@ -4,13 +4,13 @@ import { cn } from '@/lib/utils';
 import { LucideIcon } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 
-interface SidebarRouteProps {
+interface SidebarItemProps {
   icon: LucideIcon;
   label: string;
   href: string;
 }
 
-const SidebarRoute = ({ icon: Icon, label, href }: SidebarRouteProps) => {
+const SidebarItem = ({ icon: Icon, label, href }: SidebarItemProps) => {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -43,4 +43,4 @@ const SidebarRoute = ({ icon: Icon, label, href }: SidebarRouteProps) => {
   );
 };
 
-export default SidebarRoute;
+export default SidebarItem;

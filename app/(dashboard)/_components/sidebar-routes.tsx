@@ -1,8 +1,8 @@
 'use client';
 
 import { BarChart, Compass, Layout, List } from 'lucide-react';
-import SidebarRoute from './sidebar-route';
 import { usePathname } from 'next/navigation';
+import SidebarItem from './sidebar-item';
 
 const HOME_ROUTES = [
   {
@@ -30,7 +30,7 @@ const TEACHER_ROUTES = [
   },
 ];
 
-const SidebarRoutes = () => {
+export const SidebarRoutes = () => {
   const pathname = usePathname();
 
   const isTeacherPage = pathname.startsWith('/teacher');
@@ -40,7 +40,7 @@ const SidebarRoutes = () => {
   return (
     <div className='flex flex-col'>
       {routes.map((route) => (
-        <SidebarRoute
+        <SidebarItem
           key={route.href}
           icon={route.icon}
           label={route.label}
