@@ -75,7 +75,7 @@ export async function DELETE(request: Request, { params }: ContextProps) {
       }
     });
 
-    if (publishedChaptersInCourse.length) {
+    if (!publishedChaptersInCourse.length) {
       await db.course.update({
         where: {
           id: params.courseId,
