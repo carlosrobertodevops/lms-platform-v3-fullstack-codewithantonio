@@ -1,7 +1,6 @@
 import { db } from '@/lib/db';
 import { auth } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
-import Mux from "@mux/mux-node";
 
 interface ContextProps {
   params: {
@@ -52,14 +51,14 @@ export async function PATCH(request: Request, { params }: ContextProps) {
         courseId: params.courseId,
       },
       data: {
-        isPublished: true,
+        isPublished: false,
       }
     });
 
     return NextResponse.json(pubishedChapter);
 
   } catch (error) {
-    console.log('[CHAPTER_PUBLISH]', error);
+    console.log('[CHAPTER_UNPUBLISH]', error);
     return new NextResponse('Internal Error', { status: 500 });
   }
 }
