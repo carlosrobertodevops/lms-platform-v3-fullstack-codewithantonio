@@ -1,10 +1,10 @@
 'use client';
 
 import { UserButton } from '@clerk/nextjs';
-import { usePathname } from 'next/navigation';
-import { Button } from './ui/button';
 import { LogOut } from 'lucide-react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { Button } from './ui/button';
 
 const NavbarRoutes = () => {
   const pathname = usePathname();

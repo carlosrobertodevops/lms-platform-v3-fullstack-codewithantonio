@@ -1,9 +1,6 @@
+import { ConfettiProvider } from '@/components/providers/confetti-provider';
 import {
-  ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton
+  ClerkProvider
 } from '@clerk/nextjs';
 import "./globals.css";
 
@@ -16,12 +13,14 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="pt-BR">
         <body>
-          <SignedOut>
+          {/* <SignedOut>
             <SignInButton />
           </SignedOut>
           <SignedIn>
             <UserButton />
-          </SignedIn>
+          </SignedIn> */}
+          <ConfettiProvider/>
+          {/* <ToastProvider/> */}
           {children}
         </body>
       </html>
