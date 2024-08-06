@@ -28,13 +28,15 @@ export const ChapterActions = ({
   const onClick = async () => {
     try {
       setIsLoading(true);
+
       if (isPublished) {
         await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}/unpublish`);
-        toast.success ('Chapter unpublished');
+        toast.success ("Chapter unpublished");
       } else {
         await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}/publish`);
-        toast.success('Chapter published');
+        toast.success("Chapter published");
       }
+
       router.refresh();
     } catch {
       toast.error("Something went wrong");
