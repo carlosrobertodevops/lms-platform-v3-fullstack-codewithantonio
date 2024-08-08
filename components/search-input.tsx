@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/input";
 
 export const SearchInput = () => {
 
+  const [value, setValue] = useState("")
+
 
   return (
     <div className="relative">
