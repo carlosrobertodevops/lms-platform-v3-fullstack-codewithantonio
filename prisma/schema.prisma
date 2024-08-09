@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
 datasource db {
@@ -11,22 +12,26 @@ datasource db {
 }
 
 model Course {
-  id          String   @id @default(uuid())
+  id          String  @id @default(uuid())
   userId      String
-  title       String   @db.Text
-  description String?  @db.Text
-  imageUrl    String?  @db.Text
+  title       String  @db.Text
+  description String? @db.Text
+  imageUrl    String? @db.Text
   price       Float?
-  isPublished Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  attachments Attachment[]
-  chapters    Chapter[]
+  isPublished Boolean @default(false)
 
   categoryId String?
-  category   Category?  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  purchase   Purchase[]
+  category   Category? @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  chapters    Chapter[]
+  attachments Attachment[]
+  purchase    Purchase[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // @@fulltext([title])
+
+  @@index([categoryId])
 }
 
 model Attachment {

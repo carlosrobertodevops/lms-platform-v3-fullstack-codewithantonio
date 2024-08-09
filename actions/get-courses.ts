@@ -1,6 +1,7 @@
 import { Category, Course } from "@prisma/client";
 import { getProgress } from "@/actions/get-progress";
 import { db } from "@/lib/db";
+import CoursesPage from "@/app/(dashboard)/(routes)/teacher/courses/page";
 
 
 type CourseWithProgressWithCategory = Course & {
@@ -48,9 +49,30 @@ export const getCourses = async ({
         createdAt: "desc",
       }
     });
+
+    const coursesWithProgress: CourseWithProgressWithCategory[] = await Promise.all(
+      courses.map(async course => {
+        if (course.purchases.lengthc === 0) {
+          return {
+            ...course,
+            progress: null,
+          }
+        }
+
+        const progressPercentage = await getProgress(userId, course.id);
+
+        return {
+          ...course,
+          progress: progressPercentage,
+        };
+      })
+    );
+
+    return coursesWithProgress;
+
   } catch (error) {
-    console.log("[GET_COURSES]", error);
-    return [];
+      console.log("[GET_COURSES]", error);
+      return [];
   }
 };
 
