@@ -15,7 +15,7 @@ interface SearchPageProps{
 }
 
 
-const SearchPage = async ({
+export const SearchPage = async ({
   searchParams
 }: SearchPageProps) => {
   const { userId } = auth();
@@ -38,12 +38,10 @@ const SearchPage = async ({
   return (
     <>
       <div className="px-6 pt-6 md:hidden md:mb-0 block">
-        < SearchInput />
+        <SearchInput />
       </div>
-      <div className='p-6 space-x-4'>
-        <Categories
-          items={categories}
-        />
+      <div className="p-6 space-x-4">
+        <Categories items={categories}/>
         <CoursesList items={courses} />
       </div>
     </>

@@ -1,7 +1,7 @@
 import Navbar from './_components/navbar';
 import Sidebar from './_components/sidebar';
 
-const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
+export const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className='h-full'>
       <div className='fixed z-50 h-[80px] w-full md:pl-56'>
