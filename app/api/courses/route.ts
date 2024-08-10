@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
     const { title } = await request.json();
 
     if (!userId) {
-      return new NextResponse('Anauthorized', { status: 401 });
+      return new NextResponse('Unathorized', { status: 401 });
     }
 
     const course = await db.course.create({

@@ -3,7 +3,6 @@ import { getProgress } from "@/actions/get-progress";
 import { db } from "@/lib/db";
 import CoursesPage from "@/app/(dashboard)/(routes)/teacher/courses/page";
 
-
 type CourseWithProgressWithCategory = Course & {
   category: Category | null;
   chapters: { id: string }[];
@@ -12,8 +11,8 @@ type CourseWithProgressWithCategory = Course & {
 
 type GetCourses = {
   userId: string;
-  title ?: string;
-  categoryId ?: string;
+  title?: string;
+  categoryId?: string;
 } ;
 
 export const getCourses = async ({
@@ -27,7 +26,8 @@ export const getCourses = async ({
         isPublished: true,
         title: {
           contains: title,
-        }
+        },
+        categoryId
       },
       include: {
         category: true,

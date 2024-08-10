@@ -20,7 +20,7 @@ export const CoursesList = ({
       {items.map((item) => (
         <CourseCard
           key={item.id}
-          id={item. id}
+          id={item.id}
           title={item.title}
           imageUrl={item.imageUrl!}
           chaptersLength={item.chapters.length}
@@ -38,3 +38,5 @@ export const CoursesList = ({
     </div>
   )
 }
+
+export default CoursesList;

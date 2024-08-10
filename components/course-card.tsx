@@ -16,7 +16,6 @@ interface CourseCardProps {
   category: string;
 };
 
-
 export const CourseCard = ({
   id,
   title,
