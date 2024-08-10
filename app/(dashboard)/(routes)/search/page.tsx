@@ -18,10 +18,11 @@ interface SearchPageProps{
 export const SearchPage = async ({
   searchParams
 }: SearchPageProps) => {
+  
   const { userId } = auth();
 
   if (!userId) {
-    return redirect("/");
+    // return redirect("/");
   }
 
   const categories = await db.category.findMany({

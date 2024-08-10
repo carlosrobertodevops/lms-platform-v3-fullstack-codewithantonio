@@ -18,7 +18,7 @@
     "@hookform/resolvers": "^3.9.0",
     "@mux/mux-node": "^8.8.0",
     "@mux/mux-player": "^2.9.0",
-    "@mux/mux-player-react": "^2.9.0",
+    "@mux/mux-player-react": "^2.9.1",
     "@mux/mux-uploader": "^1.0.1",
     "@mux/mux-uploader-react": "^1.0.1",
     "@mux/mux-video-react": "^0.11.2",
