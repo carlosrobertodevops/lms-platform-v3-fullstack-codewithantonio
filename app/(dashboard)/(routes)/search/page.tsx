@@ -1,7 +1,7 @@
 import { getCourses } from '@/actions/get-courses';
+import { CoursesList } from '@/components/courses-list';
 import { SearchInput } from "@/components/search-input";
 
-import { CoursesList } from '@/components/courses-list';
 import { db } from "@/lib/db";
 import { auth } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
@@ -33,7 +33,7 @@ export const SearchPage = async ({
   const courses = await getCourses({
     userId,
     ...searchParams,
-  });
+  })
 
   return (
     <>

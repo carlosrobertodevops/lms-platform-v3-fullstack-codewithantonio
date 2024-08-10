@@ -27,7 +27,7 @@ export const getCourses = async ({
         title: {
           contains: title,
         },
-        categoryId
+        categoryId,
       },
       include: {
         category: true,
@@ -75,3 +75,5 @@ export const getCourses = async ({
       return [];
   }
 };
+
+export default getCourses
