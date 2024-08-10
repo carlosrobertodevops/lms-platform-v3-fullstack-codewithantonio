@@ -31,9 +31,11 @@ export const CourseCard = ({
         <div className="relative w-full aspect-video rounded-md overflow-hidden">
           <Image
             fill
+            priority={false} // {false} | {true}
             className="object-cover"
             alt={title}
             src={imageUrl}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
         <div className="flex flex-col pt-2">

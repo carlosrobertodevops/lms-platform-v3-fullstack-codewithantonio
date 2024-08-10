@@ -7,7 +7,6 @@ import { CourseSidebar } from "./_components/course-sidebar";
 const CourseLayout = async ({
   children,
   params
-
 }: {
   children: React.ReactNode;
   params: { courseId: string };
@@ -38,8 +37,8 @@ const CourseLayout = async ({
         orderBy: {
           position: "asc"
         }
-      }
-    }
+      },
+    },
   });
 
   if (!course) {
