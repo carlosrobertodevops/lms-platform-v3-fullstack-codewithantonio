@@ -54,6 +54,7 @@ export async function DELETE(request: NextRequest, { params }: ContextProps) {
 
 
     return NextResponse.json(deletedCourse);
+    
   } catch (error) {
     console.log('[COURSE_DELETE]', error);
     return new NextResponse('Internal Error', { status: 500 });
