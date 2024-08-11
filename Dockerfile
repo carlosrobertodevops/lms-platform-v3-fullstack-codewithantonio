@@ -7,6 +7,8 @@ WORKDIR /app
 
 # Copia arquivos de dependência e instala dependências
 COPY package*.json ./
+COPY ./prisma ./prisma
+
 RUN npm install
 
 # Copia o código-fonte
@@ -31,4 +33,4 @@ RUN npm ci --omit=dev
 EXPOSE 3000
 
 # Define o comando para iniciar a aplicação
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "dev"]

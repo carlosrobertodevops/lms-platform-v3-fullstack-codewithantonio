@@ -1,5 +1,3 @@
-÷
-
 export const CourseIdPage = () => {
   return (
     <div>

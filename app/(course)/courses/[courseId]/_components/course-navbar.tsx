@@ -2,6 +2,8 @@ export const CourseNavbar = () => {
   return (
     <div>
       Course Navbar
-    <div/>
+    </div>
   )
 }
+
+export default CourseNavbar
