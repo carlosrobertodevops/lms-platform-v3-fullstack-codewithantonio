@@ -1,11 +1,24 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+// import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-const isProtectedRoute = createRouteMatcher(["/dashboard(.*)"]);
+// const isProtectedRoute = createRouteMatcher(["/dashboard(.*)"]);
 
-export default clerkMiddleware((auth, req) => {
-  if (isProtectedRoute(req)) auth().protect();
-});
+// export default clerkMiddleware((auth, req) => {
+//   if (isProtectedRoute(req)) auth().protect();
+// });
+
+// export const config = {
+//   matcher: ["/((?!.*\\..*|_next).*)", "/", "/app/api/", "/app/","/(api|trpc)(.*)" ],
+// };
+
+import { clerkMiddleware } from '@clerk/nextjs/server';
+
+export default clerkMiddleware()
 
 export const config = {
-  matcher: ["/((?!.*\\..*|_next).*)", "/", "/app/api/", "/app/","/(api|trpc)(.*)" ],
+  matcher: [
+    // Skip Next.js internals and all static files, unless found in search params
+    "/((?!.*\\..*|_next).*)", "/", "/app/api/", "/app/",
+    // Always run for API routes
+    "/(api|trpc)(.*)",
+  ],
 };

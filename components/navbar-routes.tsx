@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { UserButton } from '@clerk/nextjs';
+import { SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
 import { LogOut } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { SearchInput } from './search-input';
@@ -40,9 +40,16 @@ export const NavbarRoutes = () => {
             </Button>
           </Link>
         )}
-        <UserButton
-          afterSignOutUrl='/'
-        />
+        <UserButton>
+          {/* // afterSignOutUrl='/' */}
+          <UserButton.Link
+            href="/create-organization"
+          />
+        </UserButton>
+        <SignedOut>
+          {/* Signed out users get sign in button */}
+          <SignInButton/>
+        </SignedOut>
       </div>
     </>
   )

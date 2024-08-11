@@ -6,7 +6,7 @@ import { DataTable } from "./_components/data-table";
 
 
 export const CoursesPage = async () => {
-  const { userId } = auth();
+  const { userId }  = auth();
 
   if (!userId) {
     return redirect('/');
