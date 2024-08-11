@@ -3,3 +3,5 @@ docker*.yml
 Dockerfile*
 /terraform
 makefile
+.next
+.vscode
