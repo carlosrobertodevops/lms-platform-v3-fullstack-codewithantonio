@@ -11,7 +11,6 @@ const CourseLayout = async ({
   children: React.ReactNode;
   params: { courseId: string };
   }) => {
-
   const { userId } = auth();
 
   if (!userId) {
