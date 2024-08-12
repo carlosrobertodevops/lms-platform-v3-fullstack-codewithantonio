@@ -1,5 +1,6 @@
 import Banner from '@/components/banner';
 import IconBadge from '@/components/icon-badge';
+
 import { db } from '@/lib/db';
 import { auth } from '@clerk/nextjs/server';
 import {
@@ -8,8 +9,10 @@ import {
   LayoutDashboard,
   ListChecks,
 } from 'lucide-react';
+
 import { redirect } from 'next/navigation';
 import { Actions } from './_components/actions';
+
 import AttachmentForm from './_components/attachment-form';
 import CategoryForm from './_components/category-form';
 import ChaptersForm from './_components/chapters-form';

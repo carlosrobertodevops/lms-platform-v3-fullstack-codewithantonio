@@ -8,7 +8,7 @@ const bannerVariants = cva(
     variants: {
       variant: {
         warning: 'bg-yellow-200/80 border-yelow-30 text-primary',
-        sucess: 'bg-emerald-700 border-emerald-800 text-secondary',
+        success: 'bg-emerald-700 border-emerald-800 text-secondary',
       }
     },
     defaultVariants: {
@@ -23,7 +23,7 @@ interface BannerProps extends VariantProps<typeof bannerVariants> {
 
 const iconMap = {
   warning: AlertTriangle,
-  sucess: CheckCircleIcon,
+  success: CheckCircleIcon,
 }
 
 export const Banner = ({

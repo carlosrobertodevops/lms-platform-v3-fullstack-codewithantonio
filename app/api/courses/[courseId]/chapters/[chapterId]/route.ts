@@ -1,6 +1,7 @@
 import { db } from '@/lib/db';
 import { auth } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
+
 import Mux from "@mux/mux-node";
 
 const mux = new Mux({
@@ -144,7 +145,7 @@ export async function PATCH(request: Request, { params }: ContextProps) {
         input: values.videoUrl,
         playback_policy: ['public'],
         encoding_tier: 'baseline',
-        test: false,
+        // test: false,
       });
 
       await db.muxData.create({

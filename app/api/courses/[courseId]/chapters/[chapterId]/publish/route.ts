@@ -1,6 +1,7 @@
 import { db } from '@/lib/db';
 import { auth } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
+
 import Mux from "@mux/mux-node";
 
 const mux = new Mux({
@@ -51,7 +52,7 @@ export async function PATCH(request: Request, { params }: ContextProps) {
       return new NextResponse('Missing required fields', { status: 400 });
     };
 
-    const pubishedChapter = await db.chapter.update({
+    const publishedChapter = await db.chapter.update({
       where: {
         id: params.chapterId,
         courseId: params.courseId,
@@ -61,7 +62,7 @@ export async function PATCH(request: Request, { params }: ContextProps) {
       }
     });
 
-    return NextResponse.json(pubishedChapter);
+    return NextResponse.json(publishedChapter);
 
   } catch (error) {
     console.log('[CHAPTER_PUBLISH]', error);

@@ -28,7 +28,7 @@ export async function PATCH(request: Request, { params }: ContextProps) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
 
-    const unpubishedChapter = await db.chapter.update({
+    const unpublishedChapter = await db.chapter.update({
       where: {
         id: params.chapterId,
         courseId: params.courseId,
@@ -55,7 +55,7 @@ export async function PATCH(request: Request, { params }: ContextProps) {
       });
     }
 
-    return NextResponse.json(unpubishedChapter);
+    return NextResponse.json(unpublishedChapter);
 
   } catch (error) {
     console.log('[CHAPTER_UNPUBLISH]', error);
