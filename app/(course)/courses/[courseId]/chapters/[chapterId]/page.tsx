@@ -1,7 +1,10 @@
-import { getChapter } from "@/actions/get-chapter";
-import Banner from "@/components/banner";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+
+import { getChapter } from "@/actions/get-chapter";
+import Banner from "@/components/banner";
+import { VideoPlayer } from "./_components/video-player"
+
 
 const ChapterIdPage = async ({
   params
@@ -58,7 +61,7 @@ const ChapterIdPage = async ({
             title={chapter.title}
             courseId={params.courseId}
             nextChapterId={nextChapter?.id}
-            playbackId={muxData?.playbackId}
+            playbackId={muxData?.playbackId!}
             isLocked={isLocked}
             completeOnEnd={completeOnEnd}
           />

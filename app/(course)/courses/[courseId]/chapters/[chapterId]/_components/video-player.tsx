@@ -19,26 +19,29 @@ import { useConfettiStore} from "@/hooks/use-confetti-store";
 interface VideoPlayerProps {
   playbackId: string;
   courseId:string;
-  ChapterId: string;
+  chapterId: string;
   nextChapterId: string;
   isLocked: boolean;
   completeOnEnd: boolean;
   title: string;
 }
 
-export const VideoPlayer = ({
+export const VideoPlayer = (
   playbackId,
   courseId,
-  ChapterId,
+  chapterId,
   nextChapterId,
   isLocked,
   completeOnEnd,
   title,
 }): VideoPlayerProps => {
   return (
-    <div>
-      Video Player
-    </div>
-
+    <div className="relative aspect-video">
+      {!isLocked && (
+        <div className="absolute inset-0 flex items-center justify-center bg-slate-800">
+          <Loader2 className="h-8 w-8 animate-spin text-secondary"/>
+        </div>
+      )}
+     </div>
   )
 }
