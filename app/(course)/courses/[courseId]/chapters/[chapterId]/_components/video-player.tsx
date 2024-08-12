@@ -3,17 +3,11 @@
 
 import axios from "axios";
 import MuxPlayer from "@mux/mux-player-react";
-
 import { useState } from "react";
-
 import { toast } from "react-hot-toast";
-
 import { useRouter } from "next/navigation";
-
 import { Loader2, Lock } from "lucide-react";
-
 import { cn } from "@/lib/utils";
-
 import { useConfettiStore} from "@/hooks/use-confetti-store";
 
 interface VideoPlayerProps {
@@ -26,7 +20,7 @@ interface VideoPlayerProps {
   title: string;
 }
 
-export const VideoPlayer = (
+export const VideoPlayer = ({
   playbackId,
   courseId,
   chapterId,
@@ -34,7 +28,7 @@ export const VideoPlayer = (
   isLocked,
   completeOnEnd,
   title,
-}): VideoPlayerProps => {
+}: VideoPlayerProps) => {
   return (
     <div className="relative aspect-video">
       {!isLocked && (
