@@ -1,7 +1,9 @@
-import { db } from "@/lib/db";
+import Stripe from "stripe";
 import { currentUser } from "@clerk/nextjs/server";
-import { NextResponse } from "next/server";
-import stripe from "stripe";
+import { NextResponse } from 'next/server';
+
+import { db } from "@/lib/db";
+import { stripe } from "@/lib/stripe";
 
 export async function POST(
   req: Request,
@@ -34,7 +36,7 @@ export async function POST(
       return new NextResponse("Already purchased", { status: 400 });
     }
 
-    if (course) {
+    if (!course) {
       return new NextResponse("Not found", { status: 404 });
     }
 
@@ -49,7 +51,6 @@ export async function POST(
           },
           unit_ammount: Math.round(course.price! * 100),
         }
-
       }
     ];
 
