@@ -79,13 +79,13 @@ export async function POST(
     const session = await stripe.checkout.sessions.create({
       customer: stripeCustomer.stripeCustomerId,
       line_items,
+      metadata: {
+        userId: user.id,
+        courseId: course.id,
+      },
       mode: 'payment',
       success_url: `${process.env.NEXT_PUBLIC_APP_URL}/courses/${course.id}?success=1`,
       cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/courses/${course.id}?canceled=1`,
-      metadata: {
-        courseld: course.id,
-        userId: user.id,
-      }
     })
 
     return NextResponse.json({ url: session.url });
