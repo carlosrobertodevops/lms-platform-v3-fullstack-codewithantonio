@@ -15,7 +15,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <ClerkProvider localization={ptBR}>
+    <ClerkProvider
+      localization={ptBR}
+    >
       <html lang="en">
         <body className={inter.className}>
           {/* <SignedOut>

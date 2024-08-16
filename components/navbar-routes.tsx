@@ -1,9 +1,9 @@
 'use client';
 
-import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
 import { LogOut } from 'lucide-react';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { SearchInput } from './search-input';
 
@@ -29,7 +29,7 @@ export const NavbarRoutes = () => {
         {isTeacherPage || isCoursePage ? (
           <Link href={'/'}>
             <Button size={'sm'} variant={'ghost'}>
-              <LogOut size={16} className='mr-2' />
+              <LogOut size={14} className='mr-2' />
               Exit
             </Button>
           </Link>
@@ -48,7 +48,15 @@ export const NavbarRoutes = () => {
         </UserButton>
         <SignedOut>
           {/* Signed out users get sign in button */}
-          <SignInButton/>
+          <SignInButton
+            appearance={{
+              elements: {
+                formButtonPrimary: {
+                  fontSize: 12,
+                },
+              }
+            }}
+          />
         </SignedOut>
       </div>
     </>

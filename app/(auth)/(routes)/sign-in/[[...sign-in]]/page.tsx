@@ -4,14 +4,12 @@ export default function Page() {
   return (
     <SignIn
       appearance={{
-        variables: {
-          fontFamily: 'Inter',
-        },
         elements: {
           formButtonPrimary: {
+            // fontFamily: "roboto",
             fontSize: 14,
           },
-        },
+        }
       }}
     />
   );
