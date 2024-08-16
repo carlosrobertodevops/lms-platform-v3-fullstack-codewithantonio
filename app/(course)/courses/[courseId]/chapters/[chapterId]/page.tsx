@@ -7,6 +7,7 @@ import Banner from "@/components/banner";
 import { Separator } from "@/components/ui/separator";
 
 import { Preview } from "@/components/preview";
+import { File } from "lucide-react";
 import { CourseEnrollButton } from "./_components/course-enroll-button";
 import { VideoPlayer } from "./_components/video-player";
 
@@ -90,7 +91,7 @@ const ChapterIdPage = async ({
           <div>
             <Preview value={chapter.description} />
           </div>
-          {!!attachments.length && (
+          { !!attachments.length && (
             <>
               <Separator />
               <div className="p-4">
@@ -109,7 +110,7 @@ const ChapterIdPage = async ({
                 ))}
               </div>
             </>
-          )}
+          ) }
         </div>
       </div>
     </div>

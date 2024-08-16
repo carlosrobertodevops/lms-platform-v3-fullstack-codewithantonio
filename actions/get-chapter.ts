@@ -103,7 +103,7 @@ export const getChapter = async ({
       chapter: null,
       course: null,
       muxData: null,
-      attachments: null,
+      attachments: [],
       nextChapter: null,
       userProgress: null,
       purchase: null,
