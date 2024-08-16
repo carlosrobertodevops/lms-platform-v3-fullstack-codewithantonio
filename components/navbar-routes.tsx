@@ -48,15 +48,7 @@ export const NavbarRoutes = () => {
         </UserButton>
         <SignedOut>
           {/* Signed out users get sign in button */}
-          <SignInButton
-            appearance={{
-              elements: {
-                formButtonPrimary: {
-                  fontSize: 12,
-                },
-              }
-            }}
-          />
+          <SignInButton />
         </SignedOut>
       </div>
     </>
