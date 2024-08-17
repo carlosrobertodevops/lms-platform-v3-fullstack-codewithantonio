@@ -1,7 +1,9 @@
 "use client"
 
 import { Button } from "@/components/ui/button";
+import { useConfettiStore } from "@/hooks/use-confetti-store";
 import { CheckCircle, XCircle } from "lucide-react";
+import { useRouter } from "next/router";
 
 interface CourseProgressButtonProps{
   chapterId: string;
@@ -17,6 +19,10 @@ export const CourseProgressButton = ({
   isCompleted,
 }: CourseProgressButtonProps) => {
 
+  const router = useRouter();
+  const confetti = useConfettiStore();
+
+  const Icon = isCompleted ? XCircle : CheckCircle
 
 
   const Icon =isCompleted ? XCircle : CheckCircle
