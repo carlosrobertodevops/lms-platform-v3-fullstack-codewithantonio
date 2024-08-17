@@ -16,6 +16,9 @@ export const CourseProgressButton = ({
   nextChapterId,
   isCompleted,
 }: CourseProgressButtonProps) => {
+
+
+
   const Icon =isCompleted ? XCircle : CheckCircle
   return (
     <Button
