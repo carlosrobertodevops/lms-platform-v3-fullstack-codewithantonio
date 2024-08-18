@@ -39,11 +39,9 @@ export const Chart = ({
             tickFormatter={(value) => `$${value}`}
           />
           <Bar
-            dataKey="name"
-            stroke="#888888"
-            fontSize={12}
-            tickLine={false}
-            axisLine={false}
+            dataKey="total"
+            fill="#0369a1"
+            radius={[4, 4, 0, 0]}
           />
         </BarChart>
       </ResponsiveContainer>
