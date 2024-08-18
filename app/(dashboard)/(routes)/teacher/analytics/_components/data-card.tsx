@@ -1,4 +1,4 @@
-import {Card, CardTitle, CardHeader} from "@/components/ui/card";
+import {Card, CardTitle, CardHeader, CardContent} from "@/components/ui/card";
 
 interface DataCardProps {
   value: number;
@@ -16,9 +16,10 @@ export const DataCard = ({
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-sm font-medium">
           {label}
-        </CardTitle>  
+        </CardTitle>
       </CardHeader>
       <CardContent>
+        {shouldFormat ? formatPrice(value): value}
       </CardContent>
     </Card>
   )

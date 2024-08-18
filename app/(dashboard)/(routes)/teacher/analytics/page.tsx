@@ -20,10 +20,18 @@ export const AnalyticsPage = async () => {
     return (
       <div className="p-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-          <DataCard 
+          <DataCard
+            label="Total Revenue"
+            value={totalSales}
+            shouldFormat
+          />
+          <DataCard
             label="Total Sales"
+            value={totalSales}
           />
         </div>
+        <Chart
+        />
       </div>
     )
 
