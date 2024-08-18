@@ -1,6 +1,6 @@
 export const InfoCard = () => {
   return (
-    <div>
+    <div className="border">
       Info Card
     </div>
   )
