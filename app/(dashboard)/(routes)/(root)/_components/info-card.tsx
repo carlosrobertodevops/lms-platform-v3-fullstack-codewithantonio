@@ -24,8 +24,8 @@ export const InfoCard = ({
         <p className="font-medium">
           {label}
         </p>
-        <p>
-          {numberOfItems }
+        <p className="text-gray-500 text-sm">
+          {numberOfItems} {numberOfItems == 1 ? "Course": "Courses" }
         </p>
       </div>
     </div>
