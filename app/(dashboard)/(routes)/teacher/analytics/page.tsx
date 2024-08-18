@@ -1,6 +1,7 @@
 import { getAnalytics } from "@/actions/get-analytics";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import { Chart } from "./_components/chart";
 import DataCard from "./_components/data-card";
 
 export const AnalyticsPage = async () => {
@@ -31,6 +32,7 @@ export const AnalyticsPage = async () => {
           />
         </div>
         <Chart
+          data={data}
         />
       </div>
     )

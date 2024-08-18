@@ -1,4 +1,5 @@
 import {Card, CardTitle, CardHeader, CardContent} from "@/components/ui/card";
+import { formatPrice } from "@/lib/format";
 
 interface DataCardProps {
   value: number;
