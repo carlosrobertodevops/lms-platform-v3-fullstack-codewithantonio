@@ -12,7 +12,8 @@ const progressVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-sky-600", success: "bg-emerald-700",
+        default: "bg-sky-600",
+        success: "bg-emerald-700",
     },
   },
     defaultVariants: {
@@ -28,7 +29,8 @@ export interface ProgressProps
 type CombinedProgressProps = ProgressProps & React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root>
 
 const Progress = React.forwardRef<
-  React.ElementRef<typeof ProgressPrimitive.Root>, CombinedProgressProps
+  React.ElementRef<typeof ProgressPrimitive.Root>,
+  CombinedProgressProps
 >(({ className, value, variant, ...props }, ref) => (
   <ProgressPrimitive.Root
     ref={ref}

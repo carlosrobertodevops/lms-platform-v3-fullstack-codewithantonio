@@ -47,14 +47,13 @@ export const CourseProgressButton = ({
 
     } catch {
       toast.error("Somthing went wrong");
-
     } finally {
       setIsLoading(false);
-
     }
   }
 
-  const Icon =isCompleted ? XCircle : CheckCircle
+  const Icon = isCompleted ? XCircle : CheckCircle
+  
   return (
     <Button
       onClick={onClick}
