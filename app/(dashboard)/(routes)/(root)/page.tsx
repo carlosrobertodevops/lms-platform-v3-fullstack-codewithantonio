@@ -8,7 +8,7 @@ import { InfoCard } from "./_components/info-card";
 
 // import  ReAuth  from "@/lib/reauth";
 
-export async function Dashboard() {
+export default function Dashboard() {
   try {
     const { userId } = auth();
 
@@ -55,3 +55,4 @@ export async function Dashboard() {
   }
 }
 
+export default Dashboard;
