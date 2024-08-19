@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs/server';
 import { db } from '@/lib/db';
+import { isTeacher } from '@/lib/teacher';
 
 interface ContextProps {
   params: { courseId: 'string' };
@@ -11,7 +12,7 @@ export async function POST(request: NextRequest, { params }: ContextProps) {
     const { userId } = auth();
     const { url } = await request.json();
 
-    if (!userId) {
+    if (!userId || !isTeacher(userId)) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
 

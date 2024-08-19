@@ -1,4 +1,5 @@
 import { getAnalytics } from "@/actions/get-analytics";
+import { isTeacher } from "@/lib/teacher";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { Chart } from "./_components/chart";
@@ -8,7 +9,7 @@ export const AnalyticsPage = async () => {
   try {
     const { userId } = auth();
 
-    if (!userId) {
+    if (!userId || !isTeacher(userId)) {
       return redirect("/");
     }
 

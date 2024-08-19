@@ -7,6 +7,7 @@ import { CoursesList } from '@/components/courses-list';
 
 import { SearchInput } from "@/components/search-input";
 
+import { isTeacher } from "@/lib/teacher";
 import { Categories } from "./_components/categories";
 
 interface SearchPageProps{
@@ -23,7 +24,7 @@ export const SearchPage = async ({
   try {
     const { userId } = auth();
 
-    if (!userId) {
+    if (!userId || !isTeacher(userId)) {
       return redirect("/");
     }
 

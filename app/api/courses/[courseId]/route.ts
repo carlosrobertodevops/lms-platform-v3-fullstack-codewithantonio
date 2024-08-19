@@ -2,6 +2,7 @@ import { auth } from '@clerk/nextjs/server';
 import { db } from '@/lib/db';
 import { NextRequest, NextResponse } from 'next/server';
 import Mux from '@mux/mux-node';
+import { isTeacher } from '@/lib/teacher';
 
 const mux = new Mux({
   tokenId: process.env.MUX_TOKEN_ID!,
@@ -18,7 +19,7 @@ export async function DELETE(request: NextRequest, { params }: ContextProps) {
     const { courseId } = params;
     const values = await request.json();
 
-    if (!userId) {
+    if (!userId || !isTeacher(userId)) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
 
@@ -54,7 +55,7 @@ export async function DELETE(request: NextRequest, { params }: ContextProps) {
 
 
     return NextResponse.json(deletedCourse);
-    
+
   } catch (error) {
     console.log('[COURSE_DELETE]', error);
     return new NextResponse('Internal Error', { status: 500 });
@@ -66,7 +67,7 @@ export async function PATCH(request: NextRequest, { params }: ContextProps) {
     const { courseId } = params;
     const values = await request.json();
 
-    if (!userId) {
+    if (!userId || !isTeacher(userId)) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
 

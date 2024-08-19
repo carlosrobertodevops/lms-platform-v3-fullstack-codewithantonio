@@ -1,4 +1,5 @@
 import { db } from '@/lib/db';
+import { isTeacher } from '@/lib/teacher';
 import { auth } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
 import { columns } from "./_components/columns";
@@ -8,7 +9,7 @@ import { DataTable } from "./_components/data-table";
 export const CoursesPage = async () => {
   const { userId }  = auth();
 
-  if (!userId) {
+  if (!userId || !isTeacher(userId)) {
     return redirect('/');
   }
 
