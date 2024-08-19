@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { SignedOut, SignInButton, useAuth } from '@clerk/nextjs';
+import { SignedIn, SignedOut, SignInButton, UserButton, useAuth } from '@clerk/nextjs';
 import { LogOut } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -42,6 +42,9 @@ export const NavbarRoutes = () => {
             </Button>
           </Link>
         ) : null}
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
         <SignedOut>
           {/* Signed out users get sign in button */}
           <SignInButton />
