@@ -49,7 +49,7 @@ export const NavbarRoutes = () => {
           {/* Signed out users get sign in button */}
           <SignInButton>
             <Button size={'sm'} variant={'default1'}>
-              <LogIn size={24} className='mr-2 text-sky-700-foreground' />
+              <LogIn size={24} className='mr-2' />
               Login
             </Button>
           </SignInButton>
