@@ -20,15 +20,13 @@ type DashboardCourses = {
 export const getDashboardCourses = async (userId: string | null): Promise<DashboardCourses> => {
   try {
 
-    const isAutorized = isTeacher(userId);
 
-
-    if (!userId) {
-      userId: await currentUser();
-      if (!userId) {
-        return redirect("/");
-      }
-      return redirect("/");
+    if (!userId || !isTeacher(userId)) {
+      console.log("[NOT_USER_ID_AND_NOT_TEACHeR]");
+      return {
+        completedCourses: [],
+        coursesInProgress: [],
+      };
     }
 
     const purchasedCourses = await db.purchase.findMany({
