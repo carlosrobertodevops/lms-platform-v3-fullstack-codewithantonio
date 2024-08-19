@@ -17,7 +17,7 @@ type DashboardCourses = {
   coursesInProgress: CourseWithProgressWithCategory[];
 }
 
-export const getDashboardCourses = async (userId: string): Promise<DashboardCourses> => {
+export const getDashboardCourses = async (userId: string | null): Promise<DashboardCourses> => {
   try {
 
     const isAutorized = isTeacher(userId);
