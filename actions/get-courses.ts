@@ -5,7 +5,7 @@ import CoursesPage from "@/app/(dashboard)/(routes)/teacher/courses/page";
 
 type CourseWithProgressWithCategory = Course & {
   category: Category | null;
-  chapters: { id: string }[];
+  chapters: {id: string}[];
   progress: number | null;
 };
 
