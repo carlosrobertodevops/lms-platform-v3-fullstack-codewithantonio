@@ -1,6 +1,10 @@
 import { db } from "@/lib/db";
 import type { Category, Chapter, Course } from "@prisma/client";
 import { getProgress } from "@/actions/get-progress";
+import { currentUser } from '@clerk/nextjs/server';
+import { isTeacher } from '@/lib/teacher';
+import { redirect } from 'next/navigation';
+// import { auth, currentUser } from '@clerk/nextjs/server';
 
 type CourseWithProgressWithCategory = Course & {
   category: Category;
@@ -15,6 +19,18 @@ type DashboardCourses = {
 
 export const getDashboardCourses = async (userId: string): Promise<DashboardCourses> => {
   try {
+
+    const isAutorized = isTeacher(userId);
+
+
+    if (!userId) {
+      userId: await currentUser();
+      if (!userId) {
+        return redirect("/");
+      }
+      return redirect("/");
+    }
+
     const purchasedCourses = await db.purchase.findMany({
       where: {
         userId: userId,

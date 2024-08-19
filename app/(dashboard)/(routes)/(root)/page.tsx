@@ -3,14 +3,17 @@ import { getDashboardCourses } from "@/actions/get-dashboard-courses";
 import { CoursesList } from "@/components/courses-list";
 import { auth } from "@clerk/nextjs/server";
 import { CheckCircle, Clock } from "lucide-react";
+// import { redirect } from 'next/navigation';
 import { InfoCard } from "./_components/info-card";
-//import { redirect } from 'next/navigation';
 
 import ReAuth from "@/lib/reauth";
+import { isTeacher } from "@/lib/teacher";
 
 export default async function Dashboard() {
   try {
     const { userId } = auth();
+
+    const isAutorized = isTeacher(userId);
 
     // if (!userId) {
     //   return redirect("/");
