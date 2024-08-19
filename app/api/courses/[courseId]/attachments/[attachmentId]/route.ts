@@ -1,4 +1,5 @@
 import { db } from '@/lib/db';
+import { isTeacher } from '@/lib/teacher';
 import { auth } from '@clerk/nextjs/server';
 import { NextRequest, NextResponse } from 'next/server';
 import { UTApi } from 'uploadthing/server';
@@ -12,7 +13,7 @@ export async function DELETE(request: NextRequest, { params }: ContextProps) {
     const { userId } = auth();
     const utApi = new UTApi();
 
-    if (!userId) {
+    if (!userId || !isTeacher(userId)) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
 

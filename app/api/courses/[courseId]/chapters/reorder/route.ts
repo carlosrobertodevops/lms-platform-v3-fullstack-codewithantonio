@@ -1,4 +1,5 @@
 import { db } from '@/lib/db';
+import { isTeacher } from '@/lib/teacher';
 import { auth } from '@clerk/nextjs/server';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -11,7 +12,7 @@ export async function PATCH(request: NextRequest, { params }: ContextProps) {
     const { userId } = auth();
     const { list } = await request.json();
 
-    if (!userId) {
+    if (!userId || !isTeacher(userId)) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
 
