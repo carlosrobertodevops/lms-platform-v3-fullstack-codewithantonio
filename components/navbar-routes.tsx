@@ -1,8 +1,8 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { SignedIn, SignedOut, SignInButton, UserButton, useAuth } from '@clerk/nextjs';
-import { LogOut } from 'lucide-react';
+import { SignedIn, SignedOut, SignInButton, useAuth, UserButton } from '@clerk/nextjs';
+import { LogIn, LogOut } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { SearchInput } from './search-input';
@@ -47,7 +47,12 @@ export const NavbarRoutes = () => {
         </SignedIn>
         <SignedOut>
           {/* Signed out users get sign in button */}
-          <SignInButton />
+          <SignInButton>
+            <Button size={'sm'} variant={'default1'}>
+              <LogIn size={24} className='mr-2 text-sky-700-foreground' />
+              Login
+            </Button>
+          </SignInButton>
         </SignedOut>
       </div>
     </>
